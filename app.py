@@ -23,6 +23,10 @@ def close_connection(exception):
     if db is not None:
         db.close()
 
+@app.route('/')
+def hello():
+    return "Hello world!"
+
 @app.route('/countries', methods=['GET'])
 def get_all_countries():
     conn, cur = (g.db, g.db.cursor())
@@ -79,4 +83,4 @@ def create_country(country):
     return country_json
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True) 
