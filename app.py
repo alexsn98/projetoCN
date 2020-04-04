@@ -9,8 +9,7 @@ def get_db():
     db = getattr(g, '_database', None)
     if db is None:
         db = g._database = psycopg2.connect(
-            user='postgres', password='CNgrupo8',
-            host='localhost', port='5432')
+            host='10.16.32.3', port='5432')
     return db
 
 @app.before_request
