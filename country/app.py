@@ -8,9 +8,7 @@ app = Flask(__name__)
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        db = g._database = psycopg2.connect(
-            dbname='postgres', user='postgres', password='CNgrupo8',
-            host='127.0.0.1', port='5432', cursor_factory=psycopg2.extras.RealDictCursor)
+        db = g._database = psycopg2.connect(host='127.0.0.1', port='5432', cursor_factory=psycopg2.extras.RealDictCursor)
     return db
 
 @app.before_request
