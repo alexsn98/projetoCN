@@ -26,7 +26,7 @@ def close_connection(exception):
 def hello():
     return "Hello world!"
 
-@app.route('/countries', methods=['GET'])
+@app.route('/country', methods=['GET'])
 def get_all_countries():
     cur = g.db.cursor()
 
