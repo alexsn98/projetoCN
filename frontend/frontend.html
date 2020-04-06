@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<script type="text/javascript" src="javas.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+}
+div.div1{
+display: none;
+}
+</style>
+
+<html>
+<body>
+
+<h1>Computação em Nuvem - Projeto</h1>
+
+<p>Alexandre Nascimento</p>
+<p>Bruno Teixeira</p>
+<p>Paulo Álvares</p>
+<br> 
+<br>
+
+<form>
+  <label for="fname">Country code:</label><br>
+  <input type="text" id="countryCode" name="fname"><br>
+  <button type="submit" form="getCountry" value="Submit" onclick="getCountryInfo()">Submit</button>
+</form>
+<br> 
+
+
+<div id="div01" class="div1" >
+<table id="table1" style="width:100%">
+  <tr>
+    <th>ShortName</th>
+    <th>LongName</th>
+    <th>CurrencyUnit</th>
+	<th>Region</th>
+	<th>IncomeGroup</th>
+	<th>LatestPopulationCensus</th>
+	<th>LatestHouseholdSurvey</th>
+	<th>LatestAgriculturalCensus</th>
+	<th>LatestIndustrialData</th>
+	<th>LatestTradeData</th>
+  </tr>
+  
+</table>
+</div>
+
+</body>
+</html>
