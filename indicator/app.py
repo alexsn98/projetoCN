@@ -1,16 +1,15 @@
 #!flask/bin/python
-from flask import Flask, jsonify, make_response, g
+from flask import Flask, jsonify, make_response, g, request
 import psycopg2
-import psycopg2.extras
+from psycopg2.extras import RealDictCursor
 
 app = Flask(__name__)
 
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        db = g._database = psycopg2.connect(
-            dbname='postgres', user='postgres', password='CNgrupo8',
-            host='127.0.0.1', port='5432', cursor_factory=psycopg2.extras.RealDictCursor)
+        db = g._database = psycopg2.connect(dbname='postgres', user='postgres', password='CNgrupo8',
+            host='127.0.0.1', port='5431', cursor_factory=RealDictCursor)
     return db
 
 @app.before_request
@@ -28,34 +27,29 @@ def hello():
     return "Hello world!"
 
 @app.route('/indicator', methods=['POST'])
-def get_all_countries():
-    cur = g.db.cursor()
+def add_indicator():
+    conn, cur = (g.db, g.db.cursor())
 
-    get_all_countries_query = "SELECT * FROM country;"
-    cur.execute(get_all_countries_query)
+    request_data = request.get_json()
 
-    query_result = cur.fetchall()
-    
-    del query_result[0] #remove column names
+    add_indicator_query = "INSERT INTO indicators (countryname, countrycode, indicatorname, indicatorcode, year, value) VALUES (%s, %s, %s, %s, %s, %s);"
 
-    if len(query_result) > 0:
-        r = make_response(jsonify(query_result))
-        r.status_code = 200
+    data = (request_data['countryname'], request_data['countrycode'], request_data['indicatorname'], 
+    request_data['indicatorcode'], request_data['year'], request_data['value'], )
 
-    else:
-        r = make_response("Nenhum pais encontrado")
-        r.status_code = 404
-    
-    return r
+    cur.execute(add_indicator_query, data)
+    conn.commit()
+
+    return "tudo bem"
 
 
 @app.route('/indicator/<countryCode>', methods=['GET'])
-def get_country(countryCode):
+def get_indicator(countryCode):
     cur = g.db.cursor()
 
-    get_country_query = "SELECT * FROM indicators WHERE countrycode=(%s);"
+    get_indicator_query = "SELECT * FROM indicators WHERE countrycode=(%s);"
     data = (countryCode, )
-    cur.execute(get_country_query, data)
+    cur.execute(get_indicator_query, data)
     
     query_result = cur.fetchall()
 

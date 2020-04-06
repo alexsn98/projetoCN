@@ -28,7 +28,7 @@ def hello():
     return "Hello world!"
 
 @app.route('/serie/<indicatorCode>', methods=['GET'])
-def get_country(indicatorCode):
+def get_serie(indicatorCode):
     cur = g.db.cursor()
 
     get_serie_query = "SELECT * FROM series WHERE seriescode=(%s);"
