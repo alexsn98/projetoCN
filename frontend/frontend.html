@@ -27,11 +27,11 @@ display: none;
 
 <form>
   <label for="fname">Country code:</label><br>
-  <input type="text" id="countryCode" name="fname"><br>
+  <input type="text" id="countryCode" name="fname" placeholder="Country Code"><br>
   <button type="submit" form="getCountry" value="Submit" onclick="getCountryInfo()">Submit</button>
 </form>
 <br> 
-
+<br><br>
 
 <div id="div01" class="div1" >
 <table id="table1" style="width:100%">
@@ -50,6 +50,30 @@ display: none;
   
 </table>
 </div>
-
+<br><br>
+<div>
+<form>
+  <label>Send a new indicator:</label><br><br>  
+    <input type="text" id="countryName" name="fname" placeholder="Country Short Name">
+    <br>
+    <br> 
+    <input type="text" id="countryCode" name="fname" placeholder="Country Code">
+    <br> <br> 
+    <input type="text" id="indicatorName" name="fname" placeholder="Indicator Name">
+    <br> <br> 
+    <input type="text" id="indicatorCode" name="fname" placeholder="Indicator Code">
+    <br> <br> 
+    <input type="number" id="year" name="fname" placeholder="Year">
+    <br> <br> 
+    <input type="number" id="value" name="fname" placeholder="Value">
+    <br> <br> 
+  <button type="submit" form="addIndicator" value="Submit" onclick="addIndicator()">Submit</button>
+</form>
+    
+    
+    
+    
+    
+</div>
 </body>
 </html>

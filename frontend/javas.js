@@ -62,17 +62,26 @@ function getCountryInfo() {
   } 
 
 
-
-/**
-
-var table = document.getElementById('gable');
-            data.forEach(function(object) {
-                var tr = document.createElement('tr');
-                tr.innerHTML = '<td>' + object.COUNTRY + '</td>' +
-                '<td>' + object.LoC + '</td>' +
-                '<td>' + object.BALANCE + '</td>' +
-                '<td>' + object.DATE + '</td>';
-                table.appendChild(tr);
-            });
-		
-*/
+function addIndicator(){
+    var countryName = document.getElementById("countryName").value;
+    var countryCode = document.getElementById("countryCode").value;
+    var indicatorName = document.getElementById("indicatorName").value;
+    var indicatorCode = document.getElementById("indicatorCode").value;
+    var year = document.getElementById("year").value;
+    var value = document.getElementById("value").value;
+    
+    var xhttp = new XMLHttpRequest();
+    var url = "http://35.190.114.222/indicator/";
+    
+    var obj = new Object();
+    
+    obj.countryname = countryName;
+    obj.countrycode = countryCode;
+    obj.indicatorname = indicatorName;
+    obj.indicatorcode = indicatorCode;
+    obj.year = year;
+    obj.value = value;
+    $.post(url, obj);
+    
+    
+}
