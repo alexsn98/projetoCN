@@ -42,7 +42,7 @@ def get_all_countries():
         r.status_code = 200
 
     else:
-        r = make_response("Nenhum pais encontrado")
+        r = make_response("Nenhum Pais encontrado")
         r.status_code = 404
     
     return r
