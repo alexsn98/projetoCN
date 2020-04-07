@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/backends: '{"k8s-be-30415--fdfc085947a9fe98":"HEALTHY","k8s-be-30872--fdfc085947a9fe98":"HEALTHY","k8s-be-31051--fdfc085947a9fe98":"HEALTHY","k8s-be-31807--fdfc085947a9fe98":"HEALTHY"}'
+    ingress.kubernetes.io/forwarding-rule: k8s-fw-default-my-ingress--fdfc085947a9fe98
+    ingress.kubernetes.io/target-proxy: k8s-tp-default-my-ingress--fdfc085947a9fe98
+    ingress.kubernetes.io/url-map: k8s-um-default-my-ingress--fdfc085947a9fe98
+  creationTimestamp: "2020-04-06T21:57:50Z"
+  generation: 26
+  name: my-ingress
+  namespace: default
+  resourceVersion: "1942820"
+  selfLink: /apis/extensions/v1beta1/namespaces/default/ingresses/my-ingress
+  uid: a88f4f0c-7851-11ea-b345-42010a8400ad
+spec:
+  backend:
+    serviceName: frontend-service
+    servicePort: 80
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: country-service
+          servicePort: 80
+        path: /country
+      - backend:
+          serviceName: country-service
+          servicePort: 80
+        path: /country/*
+      - backend:
+          serviceName: indicator-service
+          servicePort: 80
+        path: /indicator/*
+      - backend:
+          serviceName: serie-service
+          servicePort: 80
+        path: /serie/*
+status:
+  loadBalancer:
+    ingress:
+    - ip: 35.190.114.222
