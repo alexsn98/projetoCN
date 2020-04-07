@@ -26,45 +26,40 @@ def close_connection(exception):
 def hello():
     return "Hello world!"
 
-@app.route('/country', methods=['GET'])
-def get_all_countries():
-    cur = g.db.cursor()
-
-    get_all_countries_query = "SELECT * FROM country;"
-    cur.execute(get_all_countries_query)
-
-    query_result = cur.fetchall()
-    
-    del query_result[0] #remove column names
-
-    if len(query_result) > 0:
-        r = make_response(jsonify(query_result))
-        r.status_code = 200
-
-    else:
-        r = make_response("Nenhum Pais encontrado")
-        r.status_code = 404
-    
-    return r
-
-
 @app.route('/country/<countryCode>', methods=['GET'])
 def get_country(countryCode):
     cur = g.db.cursor()
 
-    get_country_query = "SELECT * FROM country WHERE countrycode=(%s);"
-    data = (countryCode, )
-    cur.execute(get_country_query, data)
+    if (countryCode != "ALL"):
+        get_country_query = "SELECT * FROM country WHERE countrycode=(%s);"
+        data = (countryCode, )
+        cur.execute(get_country_query, data)
+        
+        query_result = cur.fetchone()
+
+        if query_result is not None:
+            r = make_response(query_result)
+            r.status_code = 200
+
+        else:
+            r = make_response("Nenhum pais encontrado")
+            r.status_code = 404
     
-    query_result = cur.fetchone()
-
-    if query_result is not None:
-        r = make_response(query_result)
-        r.status_code = 200
-
     else:
-        r = make_response("Nenhum pais encontrado")
-        r.status_code = 404
+        get_all_countries_query = "SELECT * FROM country;"
+        cur.execute(get_all_countries_query)
+
+        query_result = cur.fetchall()
+        
+        del query_result[0] #remove column names
+
+        if len(query_result) > 0:
+            r = make_response(jsonify(query_result))
+            r.status_code = 200
+
+        else:
+            r = make_response("Nenhum Pais encontrado")
+            r.status_code = 404
     
     return r
 
