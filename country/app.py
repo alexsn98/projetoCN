@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, make_response, g
 import psycopg2
 import psycopg2.extras
+import re
 
 app = Flask(__name__)
 
@@ -26,24 +27,28 @@ def close_connection(exception):
 def hello():
     return "Hello world!"
 
-@app.route('/country/<countryCode>', methods=['GET'])
+@app.route('/country/<string:countryCode>', methods=['GET'])
 def get_country(countryCode):
     cur = g.db.cursor()
 
-    if (countryCode != "ALL"):
-        get_country_query = "SELECT * FROM country WHERE countrycode=(%s);"
-        data = (countryCode, )
-        cur.execute(get_country_query, data)
-        
-        query_result = cur.fetchone()
+    if countryCode != "ALL":
+        if re.search("[A-Z]{3}", countryCode): #valid country code
+            get_country_query = "SELECT * FROM country WHERE countrycode=(%s);"
+            data = (countryCode, )
+            cur.execute(get_country_query, data)
+            
+            query_result = cur.fetchone()
 
-        if query_result is not None:
-            r = make_response(query_result)
-            r.status_code = 200
+            if query_result is not None: #country exists
+                r = make_response(query_result)
+                r.status_code = 200
 
+            else: 
+                r = make_response("Country not found")
+                r.status_code = 404
         else:
-            r = make_response("Nenhum pais encontrado")
-            r.status_code = 404
+            r = make_response("Invalid country code supplied")
+            r.status_code = 400
     
     else:
         get_all_countries_query = "SELECT * FROM country;"
@@ -58,7 +63,7 @@ def get_country(countryCode):
             r.status_code = 200
 
         else:
-            r = make_response("Nenhum Pais encontrado")
+            r = make_response("Empty list of countries")
             r.status_code = 404
     
     return r

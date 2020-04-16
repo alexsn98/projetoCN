@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, make_response, g, request
 import psycopg2
 from psycopg2.extras import RealDictCursor
+import re
 
 app = Flask(__name__)
 
@@ -40,26 +41,31 @@ def add_indicator():
     cur.execute(add_indicator_query, data)
     conn.commit()
 
-    return "tudo bem"
+    return "OK"
 
 
 @app.route('/indicator/<countryCode>', methods=['GET'])
 def get_indicator(countryCode):
     cur = g.db.cursor()
 
-    get_indicator_query = "SELECT * FROM indicators WHERE countrycode=(%s);"
-    data = (countryCode, )
-    cur.execute(get_indicator_query, data)
-    
-    query_result = cur.fetchall()
+    if re.search("[A-Z]{3}", countryCode): #valid country code
+        get_indicator_query = "SELECT * FROM indicators WHERE countrycode=(%s);"
+        data = (countryCode, )
+        cur.execute(get_indicator_query, data)
+        
+        query_result = cur.fetchall()
 
-    if query_result is not None:
-        r = make_response(jsonify(query_result))
-        r.status_code = 200
+        if query_result is not None:
+            r = make_response(jsonify(query_result))
+            r.status_code = 200
+
+        else:
+            r = make_response("Indicator not found")
+            r.status_code = 404
 
     else:
-        r = make_response("Nenhum indicator encontrado")
-        r.status_code = 404
+        r = make_response("Invalid country code supplied")
+        r.status_code = 400
     
     return r
 
