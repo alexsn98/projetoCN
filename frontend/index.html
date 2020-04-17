@@ -51,11 +51,11 @@
 <form id="countryForm">
   <h3>Show country:</h3>
   <label for="fname">Country code:</label><br>
-  <input type="text" id="countryCode" name="fname" placeholder="Country Code"> 
+  <input type="text" id="countryCodeToSearch" name="fname" placeholder="Country Code"> 
   <button type="submit" form="getCountry" value="Submit" onclick="getCountryInfo()">Submit</button>
 </form>
 <h3>Show all countries:</h3>
-<button type="submit" form="getCountry" value="Submit" onclick="getAllCountries()">Submit</button>
+<button type="submit" value="Submit" onclick="getAllCountries()">Submit</button>
 <br> 
 <br><br>
 
@@ -141,11 +141,12 @@
   });
 
   function getCountryInfo() {
-    var countryCode = document.getElementById("countryCode").value;
+    var countryCode = document.getElementById("countryCodeToSearch").value;
     var div = document.getElementById("div01");
     var table = document.getElementById("table1");
-    div.style.display = "block";
-    
+  
+    console.log(countryCode);
+
     if (!showedCountries.includes(countryCode)) {
       showedCountries.push(countryCode);
 
@@ -165,8 +166,9 @@
                 $("h2").html("O servidor não conseguiu processar o pedido");
             },
             success: function(resposta) {
-                    first = false;
                     if(resposta[0] != "Nenhum Pais encontrado"){
+                      div.style.display = "block";
+
                       var row = table.insertRow(1);
 
                       var cell0 = row.insertCell(0);
@@ -179,7 +181,6 @@
                       var cell7 = row.insertCell(7);
                       var cell8 = row.insertCell(8);
                       var cell9 = row.insertCell(9);
-
 
                       cell0.innerHTML = resposta.shortname;
                       cell1.innerHTML = resposta.longname;
@@ -201,21 +202,6 @@
     var div = document.getElementById("div01");
     div.style.display = "block";
     var table = document.getElementById("table1");
-    var first = true;
-    if(first){
-      var row = table.insertRow(1);
-      
-      var cell0 = row.insertCell(0);
-      var cell1 = row.insertCell(1);
-      var cell2 = row.insertCell(2);
-      var cell3 = row.insertCell(3);
-      var cell4 = row.insertCell(4);
-      var cell5 = row.insertCell(5);
-      var cell6 = row.insertCell(6);
-      var cell7 = row.insertCell(7);
-      var cell8 = row.insertCell(8);
-      var cell9 = row.insertCell(9);
-    }
     
     if (CountryCode.length == 3) {
       var xhttp = new XMLHttpRequest();
@@ -234,9 +220,20 @@
                 $("h2").html("O servidor não conseguiu processar o pedido");
             },
             success: function(resposta) {
-                    // Interpretando retorno JSON...
-                    first = false;
                     for (country in resposta) {
+                      var row = table.insertRow(1);
+      
+                      var cell0 = row.insertCell(0);
+                      var cell1 = row.insertCell(1);
+                      var cell2 = row.insertCell(2);
+                      var cell3 = row.insertCell(3);
+                      var cell4 = row.insertCell(4);
+                      var cell5 = row.insertCell(5);
+                      var cell6 = row.insertCell(6);
+                      var cell7 = row.insertCell(7);
+                      var cell8 = row.insertCell(8);
+                      var cell9 = row.insertCell(9);
+
                       cell0.innerHTML = country.shortname;
                       cell1.innerHTML = country.longname;
                       cell2.innerHTML = country.currencyunit;
