@@ -20,11 +20,11 @@
 <html>
 <body>
 
-<h1>Computação em Nuvem - Projeto</h1>
+<h1>Computacao em Nuvem - Projeto</h1>
 
 <p>Alexandre Nascimento</p>
 <p>Bruno Teixeira</p>
-<p>Paulo Álvares</p>
+<p>Paulo Alvares</p>
 <br> 
 
 <div>
@@ -62,16 +62,16 @@
 <div id="div01" class="div1">
   <table id="table1" style="width:100%">
     <tr>
-      <th>ShortName</th>
-      <th>LongName</th>
-      <th>CurrencyUnit</th>
+      <th>Short Name</th>
+      <th>Long Name</th>
+      <th>Currency Unit</th>
       <th>Region</th>
-      <th>IncomeGroup</th>
-      <th>LatestPopulationCensus</th>
-      <th>LatestHouseholdSurvey</th>
-      <th>LatestAgriculturalCensus</th>
-      <th>LatestIndustrialData</th>
-      <th>LatestTradeData</th>
+      <th>Income Group</th>
+      <th>Latest Population Census</th>
+      <th>Latest Household Survey</th>
+      <th>Latest Agricultural Census</th>
+      <th>Latest Industrial Data</th>
+      <th>Latest Trade Data</th>
     </tr>
   </table>
 
@@ -89,18 +89,15 @@
 <br> 
 
 <div id="div02" class="div2">
-  <table id="table1" style="width:100%">
+  <table id="table2" style="width:100%">
     <tr>
-      <th>countrycode</th>
-      <th>countryname</th>
-      <th>indicatorcode</th>
-      <th>indicatorname</th>
-      <th>contributions </th>
-      <th>value</th>
-      <th>year</th>
-      <th>LatestAgriculturalCensus</th>
-      <th>LatestIndustrialData</th>
-      <th>LatestTradeData</th>
+      <th>Country Name</th>
+      <th>Indicator Code</th>
+      <th>Indicator Name</th>
+      <th>Contributions </th>
+      <th>Value</th>
+      <th>Year</th>
+
     </tr>
   </table>
 
@@ -118,12 +115,12 @@
 <div id="div03" class="div3">
   <table id="table3" style="width:100%">
     <tr>
-      <th>indicatorname</th>
-      <th>longdefinition</th>
-      <th>seriescode</th>
-      <th>source</th>
-      <th>topic</th>
-      <th>unitofmeasure</th>
+      <th>Indicator Name</th>
+      <th>Long Definition</th>
+      <th>Series Code</th>
+      <th>Source</th>
+      <th>Topic</th>
+      <th>Unit of Measure</th>
     </tr>
   </table>
   <br><br>
@@ -263,7 +260,7 @@ function getCountryIndicators() {
 	var yearL = document.getElementById("yearL");
 	var yearR = document.getElementById("yearR");
     div.style.display = "block";
-    var table = document.getElementById("table1");
+    var table = document.getElementById("table2");
     var xhttp = new XMLHttpRequest();
     var url = "http://35.190.114.222/indicator/" + country;
 
@@ -294,8 +291,8 @@ function getCountryIndicators() {
                       var cell5 = row.insertCell(5);
 
                       cell0.innerHTML = resposta[i].countryname;
-                      cell1.innerHTML = resposta[i].indicatorcode;
-                      cell2.innerHTML = resposta[i].indicatorname;
+                      cell1.innerHTML = resposta[i].indicatorname;
+                      cell2.innerHTML = resposta[i].indicatorcode;
                       cell3.innerHTML = resposta[i].contributions ;
                       cell4.innerHTML = resposta[i].value ;
                       cell5.innerHTML = resposta[i].year;
