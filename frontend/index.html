@@ -38,7 +38,7 @@
       <br><br> 
       <input type="text" id="indicatorCode" name="fname" placeholder="Indicator Code">
       <br><br> 
-      <input type="number" id="year" name="fname" placeholder="Year">
+      <input type="number" min="1900" max="2020" id="year" name="fname" placeholder="Year">
       <br><br> 
       <input type="number" id="value" name="fname" placeholder="Value">
       <br><br> 
@@ -79,7 +79,7 @@
   <br><br>
 </div>
 
-<form>
+<form id="indicatorForm">
   <h3>Show country indicators:</h3>
   <label for="fname">Country code:</label><br>
   <input type="text" id="countryCode1" name="fname" placeholder="Country Code"> 
@@ -105,7 +105,7 @@
   <br><br>
 </div>
 
-<form>
+<form id="indicatorInfoForm">
   <h3>Show indicator info:</h3>
   <label for="fname">Indicator code:</label><br>
   <input type="text" id="indicatorCodePlace" name="fname" placeholder="Country Code"> 
@@ -142,8 +142,23 @@
       });
   });
   
+  $(function() {
+    $("#indicatorForm").submit(function() { 
+      getCountryInfo();
+      return false; 
+      });
+  });
+  
+  $(function() {
+    $("#indicatorInfoForm").submit(function() { 
+      getCountryInfo();
+      return false; 
+      });
+  });
+  
   function clearTable(tableId){
 	$('#' + tableId +' tr:not(:first-child)').remove();
+	showedCountries = [];
   }
   
   function getCountryInfo() {
@@ -263,6 +278,7 @@
 	
 function getCountryIndicators() {
     var div = document.getElementById("div02");
+	clearTable("table2");
 	var country = document.getElementById("countryCode1").value;
 	var year = document.getElementById("yearL").value;
     div.style.display = "block";
@@ -319,7 +335,7 @@ function getCountryIndicators() {
       
       var xhttp = new XMLHttpRequest();
       var url = "http://35.190.114.222/indicator/";
-      
+      if(countryName.length > 0 && countryCode.length == 3 && indicatorName.length > 0 && indicatorCode.length > 0){
       var obj = new Object();
       
       obj.countryname = countryName;
@@ -329,6 +345,7 @@ function getCountryIndicators() {
       obj.year = year;
       obj.value = value;
       $.post(url, obj);
+	  }
   }
 
   function getSerieInfo() {
