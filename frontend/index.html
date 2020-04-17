@@ -82,6 +82,8 @@
   <h3>Show country indicators:</h3>
   <label for="fname">Country code:</label><br>
   <input type="text" id="countryCode" name="fname" placeholder="Country Code"> 
+  <input type="number" min="1900" max="2020" step="1" value="2010" />
+  <input type="number" min="1900" max="2020" step="1" value="2019" />
   <button type="submit" form="getCountry" value="Submit" onclick="getCountryIndicators()">Submit</button>
 </form>
 <br> 
@@ -220,9 +222,9 @@
               $("h2").html("O servidor não conseguiu processar o pedido");
           },
           success: function(resposta) {
-                  for (country in resposta) {
-                    if (!showedCountries.includes(country.countrycode)) {
-                      showedCountries.push(country.countryCode);
+                  for (var i=0;i<resposta.length;i++) {
+                    if (!showedCountries.includes(resposta[i].countrycode)) {
+                      showedCountries.push(resposta[i].countryCode);
 
                       var row = table.insertRow(1);
     
@@ -237,16 +239,16 @@
                       var cell8 = row.insertCell(8);
                       var cell9 = row.insertCell(9);
 
-                      cell0.innerHTML = country.shortname;
-                      cell1.innerHTML = country.longname;
-                      cell2.innerHTML = country.currencyunit;
-                      cell3.innerHTML = country.region;
-                      cell4.innerHTML = country.incomegroup;
-                      cell5.innerHTML = country.latestpopulationcensus;
-                      cell6.innerHTML = country.latesthouseholdsurvey;
-                      cell7.innerHTML = country.latestagriculturalcensus;
-                      cell8.innerHTML = country.latestindustrialdata;
-                      cell9.innerHTML = country.latesttradedata;
+                      cell0.innerHTML = resposta[i].shortname;
+                      cell1.innerHTML = resposta[i].longname;
+                      cell2.innerHTML = resposta[i].currencyunit;
+                      cell3.innerHTML = resposta[i].region;
+                      cell4.innerHTML = resposta[i].incomegroup;
+                      cell5.innerHTML = resposta[i].latestpopulationcensus;
+                      cell6.innerHTML = resposta[i].latesthouseholdsurvey;
+                      cell7.innerHTML = resposta[i].latestagriculturalcensus;
+                      cell8.innerHTML = resposta[i].latestindustrialdata;
+                      cell9.innerHTML = resposta[i].latesttradedata;
                     }
                   }  
           } 
@@ -277,7 +279,7 @@
   }
 
   function getSerieInfo() {
-    var indicatorCode = document.getElementById("indicatorCode");;
+    var indicatorCode = document.getElementById("indicatorCode").value;
     var div = document.getElementById("div03");
     div.style.display = "block";
     var table = document.getElementById("table3");
