@@ -223,7 +223,7 @@
           },
           success: function(resposta) {
                   for (var i=0;i<resposta.length;i++) {
-                    if (!showedCountries.includes(resposta[i].countrycode) && resposta[i].currencyunit.length == 0) {
+                    if (!showedCountries.includes(resposta[i].countrycode) && resposta[i].currencyunit != null) {
                       showedCountries.push(resposta[i].countryCode);
 
                       var row = table.insertRow(1);
