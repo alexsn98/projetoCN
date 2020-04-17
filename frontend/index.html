@@ -204,6 +204,8 @@
     var table = document.getElementById("table1");
     var xhttp = new XMLHttpRequest();
     var url = "http://35.190.114.222/country/ALL";
+
+    $("#table1").empty();
       
     $.ajax({
           type: "GET", 
@@ -218,6 +220,7 @@
               $("h2").html("O servidor não conseguiu processar o pedido");
           },
           success: function(resposta) {
+                  console.log(resposta);
                   for (country in resposta) {
                     var row = table.insertRow(1);
     
