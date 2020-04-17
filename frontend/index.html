@@ -110,7 +110,7 @@
 <form>
   <h3>Show indicator info:</h3>
   <label for="fname">Indicator code:</label><br>
-  <input type="text" id="indicatorCode" name="fname" placeholder="Country Code"> 
+  <input type="text" id="indicatorCodePlace" name="fname" placeholder="Country Code"> 
   <button type="submit" form="getCountry" value="Submit" onclick="getSerieInfo()">Submit</button>
 </form>
 <br> 
@@ -223,7 +223,7 @@
           },
           success: function(resposta) {
                   for (var i=0;i<resposta.length;i++) {
-                    if (!showedCountries.includes(resposta[i].countrycode)) {
+                    if (!showedCountries.includes(resposta[i].countrycode) && resposta[i].currencyunit.length == 0) {
                       showedCountries.push(resposta[i].countryCode);
 
                       var row = table.insertRow(1);
@@ -279,14 +279,14 @@
   }
 
   function getSerieInfo() {
-    var indicatorCode = document.getElementById("indicatorCode").value;
+    var indicatorCode = document.getElementById("indicatorCodePlace").value;
     var div = document.getElementById("div03");
     div.style.display = "block";
     var table = document.getElementById("table3");
   
     var xhttp = new XMLHttpRequest();
     var url = "http://35.190.114.222/serie/" + indicatorCode;
-      
+    console.log(indicatorCode);
     $.ajax({
           type: "GET", 
           url: url,
