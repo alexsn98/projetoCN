@@ -48,12 +48,14 @@
 
 <br>
 
-<form>
+<form id="countryForm">
   <h3>Show country:</h3>
   <label for="fname">Country code:</label><br>
   <input type="text" id="countryCode" name="fname" placeholder="Country Code"> 
   <button type="submit" form="getCountry" value="Submit" onclick="getCountryInfo()">Submit</button>
 </form>
+<h3>Show all countries:</h3>
+<button type="submit" form="getCountry" value="Submit" onclick="getAllCountries()">Submit</button>
 <br> 
 <br><br>
 
@@ -107,7 +109,7 @@
   <h3>Show indicator info:</h3>
   <label for="fname">Indicator code:</label><br>
   <input type="text" id="countryCode" name="fname" placeholder="Country Code"> 
-  <button type="submit" form="getCountry" value="Submit" onclick="getCountryInfo()">Submit</button>
+  <button type="submit" form="getCountry" value="Submit" onclick="getAllCountriesInfo()">Submit</button>
 </form>
 <br> 
 
@@ -131,13 +133,20 @@
 <script>
   showedCountries = [];
 
+  $(function() {
+    $("#countryForm").submit(function() { 
+      getCountryInfo();
+      return false; 
+      });
+  });
+
   function getCountryInfo() {
     var countryCode = document.getElementById("countryCode").value;
     var div = document.getElementById("div01");
     var table = document.getElementById("table1");
     div.style.display = "block";
     
-    if (countryCode.length == 3 && !showedCountries.includes(countryCode)) {
+    if (!showedCountries.includes(countryCode)) {
       showedCountries.push(countryCode);
 
       var xhttp = new XMLHttpRequest();
@@ -156,7 +165,6 @@
                 $("h2").html("O servidor não conseguiu processar o pedido");
             },
             success: function(resposta) {
-                    // Interpretando retorno JSON...
                     first = false;
                     if(resposta[0] != "Nenhum Pais encontrado"){
                       var row = table.insertRow(1);
@@ -189,7 +197,7 @@
       }
     } 
 
-  function getAllCountryInfo() {
+  function getAllCountriesInfo() {
     var div = document.getElementById("div01");
     div.style.display = "block";
     var table = document.getElementById("table1");
