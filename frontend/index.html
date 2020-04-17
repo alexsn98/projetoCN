@@ -81,9 +81,9 @@
 <form>
   <h3>Show country indicators:</h3>
   <label for="fname">Country code:</label><br>
-  <input type="text" id="countryCode" name="fname" placeholder="Country Code"> 
-  <input type="number" min="1900" max="2020" step="1" value="2010" />
-  <input type="number" min="1900" max="2020" step="1" value="2019" />
+  <input type="text" id="countryCode1" name="fname" placeholder="Country Code"> 
+  <input type="number" min="1900" max="2020" step="1" id="yearL" value="2010" />
+  <input type="number" min="1900" max="2020" step="1" id="yearR" value="2019" />
   <button type="submit" form="getCountry" value="Submit" onclick="getCountryIndicators()">Submit</button>
 </form>
 <br> 
@@ -91,13 +91,13 @@
 <div id="div02" class="div2">
   <table id="table1" style="width:100%">
     <tr>
-      <th>ShortName</th>
-      <th>LongName</th>
-      <th>CurrencyUnit</th>
-      <th>Region</th>
-      <th>IncomeGroup</th>
-      <th>LatestPopulationCensus</th>
-      <th>LatestHouseholdSurvey</th>
+      <th>countrycode</th>
+      <th>countryname</th>
+      <th>indicatorcode</th>
+      <th>indicatorname</th>
+      <th>contributions </th>
+      <th>value</th>
+      <th>year</th>
       <th>LatestAgriculturalCensus</th>
       <th>LatestIndustrialData</th>
       <th>LatestTradeData</th>
@@ -256,6 +256,56 @@
     
     } 
 
+	
+function getCountryIndicators() {
+    var div = document.getElementById("div02");
+	var country = document.getElementById("countryCode1").value;
+	var yearL = document.getElementById("yearL");
+	var yearR = document.getElementById("yearR");
+    div.style.display = "block";
+    var table = document.getElementById("table1");
+    var xhttp = new XMLHttpRequest();
+    var url = "http://35.190.114.222/indicator/" + country;
+
+    
+      
+    $.ajax({
+          type: "GET", 
+          url: url,
+          timeout: 3000,
+          contentType: "application/json; charset=utf-8",
+          cache: false,
+          beforeSend: function() {
+              $("h2").html("Carregando..."); //Carregando
+          },
+          error: function() {
+              $("h2").html("O servidor não conseguiu processar o pedido");
+          },
+          success: function(resposta) {
+                  for (var i=0;i<resposta.length;i++) {
+					if(parseInt(resposta[i].year)<= yearR && parseInt(resposta[i].year)>= yearL){
+                      var row = table.insertRow(1);
+    
+                      var cell0 = row.insertCell(0);
+                      var cell1 = row.insertCell(1);
+                      var cell2 = row.insertCell(2);
+                      var cell3 = row.insertCell(3);
+                      var cell4 = row.insertCell(4);
+                      var cell5 = row.insertCell(5);
+
+                      cell0.innerHTML = resposta[i].countryname;
+                      cell1.innerHTML = resposta[i].indicatorcode;
+                      cell2.innerHTML = resposta[i].indicatorname;
+                      cell3.innerHTML = resposta[i].contributions ;
+                      cell4.innerHTML = resposta[i].value ;
+                      cell5.innerHTML = resposta[i].year;
+					}
+                    
+                  }  
+          } 
+      });    
+    
+    } 
   function addIndicator(){
       var countryName = document.getElementById("countryName").value;
       var countryCode = document.getElementById("countryCode").value;
