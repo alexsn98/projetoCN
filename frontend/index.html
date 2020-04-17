@@ -60,6 +60,7 @@
 <br><br>
 
 <div id="div01" class="div1">
+  <button value="Clear Table" onclick="clearTable('table1')">Clear Table</button>
   <table id="table1" style="width:100%">
     <tr>
       <th>Short Name</th>
@@ -82,13 +83,13 @@
   <h3>Show country indicators:</h3>
   <label for="fname">Country code:</label><br>
   <input type="text" id="countryCode1" name="fname" placeholder="Country Code"> 
-  <input type="number" min="1900" max="2020" step="1" id="yearL" value="2010" />
-  <input type="number" min="1900" max="2020" step="1" id="yearR" value="2019" />
+  <input type="number" min="1900" max="2020" step="1" id="yearL" value="2019" />
   <button type="submit" form="getCountry" value="Submit" onclick="getCountryIndicators()">Submit</button>
 </form>
 <br> 
 
 <div id="div02" class="div2">
+  <button value="Clear Table" onclick="clearTable('table2')">Clear Table</button>
   <table id="table2" style="width:100%">
     <tr>
       <th>Country Name</th>
@@ -113,6 +114,7 @@
 <br> 
 
 <div id="div03" class="div3">
+  <button value="Clear Table" onclick="clearTable('table3')">Clear Table</button>
   <table id="table3" style="width:100%">
     <tr>
       <th>Indicator Name</th>
@@ -121,6 +123,7 @@
       <th>Source</th>
       <th>Topic</th>
       <th>Unit of Measure</th>
+
     </tr>
   </table>
   <br><br>
@@ -138,7 +141,11 @@
       return false; 
       });
   });
-
+  
+  function clearTable(tableId){
+	$('#' + tableId +' tr:not(:first-child)').remove();
+  }
+  
   function getCountryInfo() {
     var countryCode = document.getElementById("countryCodeSearchCode").value;
     var div = document.getElementById("div01");
@@ -257,8 +264,7 @@
 function getCountryIndicators() {
     var div = document.getElementById("div02");
 	var country = document.getElementById("countryCode1").value;
-	var yearL = document.getElementById("yearL").value;
-	var yearR = document.getElementById("yearR").value;
+	var year = document.getElementById("yearL").value;
     div.style.display = "block";
     var table = document.getElementById("table2");
     var xhttp = new XMLHttpRequest();
@@ -280,7 +286,7 @@ function getCountryIndicators() {
           },
           success: function(resposta) {
                   for (var i=0;i<resposta.length;i++) {
-					if(parseInt(resposta[i].year)<= yearR && parseInt(resposta[i].year)>= yearL){
+					if(parseInt(resposta[i].year)== year){
                       var row = table.insertRow(1);
     
                       var cell0 = row.insertCell(0);
