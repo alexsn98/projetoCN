@@ -2,16 +2,19 @@
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <style>
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-th, td {
-  padding: 15px;
-}
-div.div1{
-display: none;
-}
+  * {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 15px;
+  }
+  div.div1 , div.div2{
+  display: none;
+  }
 </style>
 
 <html>
@@ -23,150 +26,244 @@ display: none;
 <p>Bruno Teixeira</p>
 <p>Paulo Álvares</p>
 <br> 
+
+<div>
+  <form>
+      <h3>Create a new indicator:</h3>
+      <input type="text" id="countryName" name="fname" placeholder="Country Short Name">
+      <br><br> 
+      <input type="text" id="countryCode" name="fname" placeholder="Country Code">
+      <br><br> 
+      <input type="text" id="indicatorName" name="fname" placeholder="Indicator Name">
+      <br><br> 
+      <input type="text" id="indicatorCode" name="fname" placeholder="Indicator Code">
+      <br><br> 
+      <input type="number" id="year" name="fname" placeholder="Year">
+      <br><br> 
+      <input type="number" id="value" name="fname" placeholder="Value">
+      <br><br> 
+    <button type="submit" form="addIndicator" value="Submit" onclick="addIndicator()">Submit</button>
+  </form>
+</div>
+
 <br>
 
 <form>
+  <h3>Show country:</h3>
   <label for="fname">Country code:</label><br>
-  <input type="text" id="countryCode" name="fname" placeholder="Country Code"><br>
+  <input type="text" id="countryCode" name="fname" placeholder="Country Code"> 
   <button type="submit" form="getCountry" value="Submit" onclick="getCountryInfo()">Submit</button>
 </form>
 <br> 
 <br><br>
 
-<div id="div01" class="div1" >
-<table id="table1" style="width:100%">
-  <tr>
-    <th>ShortName</th>
-    <th>LongName</th>
-    <th>CurrencyUnit</th>
-	<th>Region</th>
-	<th>IncomeGroup</th>
-	<th>LatestPopulationCensus</th>
-	<th>LatestHouseholdSurvey</th>
-	<th>LatestAgriculturalCensus</th>
-	<th>LatestIndustrialData</th>
-	<th>LatestTradeData</th>
-  </tr>
-  
-</table>
+<div id="div01" class="div1">
+  <table id="table1" style="width:100%">
+    <tr>
+      <th>ShortName</th>
+      <th>LongName</th>
+      <th>CurrencyUnit</th>
+      <th>Region</th>
+      <th>IncomeGroup</th>
+      <th>LatestPopulationCensus</th>
+      <th>LatestHouseholdSurvey</th>
+      <th>LatestAgriculturalCensus</th>
+      <th>LatestIndustrialData</th>
+      <th>LatestTradeData</th>
+    </tr>
+  </table>
+
+  <br><br>
 </div>
-<br><br>
-<div>
+
 <form>
-  <label>Send a new indicator:</label><br><br>  
-    <input type="text" id="countryName" name="fname" placeholder="Country Short Name">
-    <br>
-    <br> 
-    <input type="text" id="countryCode" name="fname" placeholder="Country Code">
-    <br> <br> 
-    <input type="text" id="indicatorName" name="fname" placeholder="Indicator Name">
-    <br> <br> 
-    <input type="text" id="indicatorCode" name="fname" placeholder="Indicator Code">
-    <br> <br> 
-    <input type="number" id="year" name="fname" placeholder="Year">
-    <br> <br> 
-    <input type="number" id="value" name="fname" placeholder="Value">
-    <br> <br> 
-  <button type="submit" form="addIndicator" value="Submit" onclick="addIndicator()">Submit</button>
+  <h3>Show country indicators:</h3>
+  <label for="fname">Country code:</label><br>
+  <input type="text" id="countryCode" name="fname" placeholder="Country Code"> 
+  <button type="submit" form="getCountry" value="Submit" onclick="getCountryIndicators()">Submit</button>
 </form>
-    
-    
-    
-    
-    
+<br> 
+
+<div id="div02" class="div2">
+  <table id="table1" style="width:100%">
+    <tr>
+      <th>ShortName</th>
+      <th>LongName</th>
+      <th>CurrencyUnit</th>
+      <th>Region</th>
+      <th>IncomeGroup</th>
+      <th>LatestPopulationCensus</th>
+      <th>LatestHouseholdSurvey</th>
+      <th>LatestAgriculturalCensus</th>
+      <th>LatestIndustrialData</th>
+      <th>LatestTradeData</th>
+    </tr>
+  </table>
+
+  <br><br>
 </div>
+
+<form>
+  <h3>Show indicator info:</h3>
+  <label for="fname">Indicator code:</label><br>
+  <input type="text" id="countryCode" name="fname" placeholder="Country Code"> 
+  <button type="submit" form="getCountry" value="Submit" onclick="getCountryInfo()">Submit</button>
+</form>
+<br> 
+
+<div id="div01" class="div1">
+  <table id="table2" style="width:100%">
+    <tr>
+      <th>Country Code</th>
+      <th>Country Name</th>
+      <th>Indicator Code</th>
+      <th>Indicator Name</th>
+      <th>Value</th>
+      <th>Year</th>
+    </tr>
+  </table>
+  <br><br>
+</div>
+
 </body>
 </html>
 
 <script>
-function getCountryInfo() {
-  var CountryCode = document.getElementById("countryCode").value;
-  var div = document.getElementById("div01");
-  div.style.display = "block";
-  var table = document.getElementById("table1");
-  var first = true;
-  if(first){
-    var row = table.insertRow(1);
-    
-	// Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-	var cell0 = row.insertCell(0);
-	var cell1 = row.insertCell(1);
-	var cell2 = row.insertCell(2);
-	var cell3 = row.insertCell(3);
-	var cell4 = row.insertCell(4);
-	var cell5 = row.insertCell(5);
-	var cell6 = row.insertCell(6);
-	var cell7 = row.insertCell(7);
-	var cell8 = row.insertCell(8);
-	var cell9 = row.insertCell(9);
-	
-	
-  }
-	
-  if (CountryCode.length == 3) {
-    var xhttp = new XMLHttpRequest();
-	var url = "http://35.190.114.222/country/" + CountryCode;
-      
-	$.ajax({
-        type: "GET", 
-        url: url,
-        timeout: 3000,
-        contentType: "application/json; charset=utf-8",
-        cache: false,
-        beforeSend: function() {
-            $("h2").html("Carregando..."); //Carregando
-        },
-        error: function() {
-            $("h2").html("O servidor não conseguiu processar o pedido");
-        },
-        success: function(resposta) {
-                // Interpretando retorno JSON...
-                first = false;
-                if(resposta[0] != "Nenhum Pais encontrado"){
-                cell0.innerHTML = resposta.shortname;
-                cell1.innerHTML = resposta.longname;
-                cell2.innerHTML = resposta.currencyunit;
-                cell3.innerHTML = resposta.region;
-                cell4.innerHTML = resposta.incomegroup;
-                cell5.innerHTML = resposta.latestpopulationcensus;
-                cell6.innerHTML = resposta.latesthouseholdsurvey;
-                cell7.innerHTML = resposta.latestagriculturalcensus;
-                cell8.innerHTML = resposta.latestindustrialdata;
-                cell9.innerHTML = resposta.latesttradedata;
-                }
-                
-        } 
-    });    
-    }
-  
+  showedCountries = [];
 
-  } 
-
-
-function addIndicator(){
-    var countryName = document.getElementById("countryName").value;
+  function getCountryInfo() {
     var countryCode = document.getElementById("countryCode").value;
-    var indicatorName = document.getElementById("indicatorName").value;
-    var indicatorCode = document.getElementById("indicatorCode").value;
-    var year = document.getElementById("year").value;
-    var value = document.getElementById("value").value;
+    var div = document.getElementById("div01");
+    var table = document.getElementById("table1");
+    div.style.display = "block";
     
-    var xhttp = new XMLHttpRequest();
-    var url = "http://35.190.114.222/indicator/";
-    
-    var obj = new Object();
-    
-    obj.countryname = countryName;
-    obj.countrycode = countryCode;
-    obj.indicatorname = indicatorName;
-    obj.indicatorcode = indicatorCode;
-    obj.year = year;
-    obj.value = value;
-    $.post(url, obj);
+    if (countryCode.length == 3 && !showedCountries.includes(countryCode)) {
+      showedCountries.push(countryCode);
 
+      var xhttp = new XMLHttpRequest();
+      var url = "http://35.190.114.222/country/" + countryCode;
+        
+      $.ajax({
+            type: "GET", 
+            url: url,
+            timeout: 3000,
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            beforeSend: function() {
+                $("h2").html("Carregando..."); //Carregando
+            },
+            error: function() {
+                $("h2").html("O servidor não conseguiu processar o pedido");
+            },
+            success: function(resposta) {
+                    // Interpretando retorno JSON...
+                    first = false;
+                    if(resposta[0] != "Nenhum Pais encontrado"){
+                      var row = table.insertRow(1);
+
+                      var cell0 = row.insertCell(0);
+                      var cell1 = row.insertCell(1);
+                      var cell2 = row.insertCell(2);
+                      var cell3 = row.insertCell(3);
+                      var cell4 = row.insertCell(4);
+                      var cell5 = row.insertCell(5);
+                      var cell6 = row.insertCell(6);
+                      var cell7 = row.insertCell(7);
+                      var cell8 = row.insertCell(8);
+                      var cell9 = row.insertCell(9);
+
+
+                      cell0.innerHTML = resposta.shortname;
+                      cell1.innerHTML = resposta.longname;
+                      cell2.innerHTML = resposta.currencyunit;
+                      cell3.innerHTML = resposta.region;
+                      cell4.innerHTML = resposta.incomegroup;
+                      cell5.innerHTML = resposta.latestpopulationcensus;
+                      cell6.innerHTML = resposta.latesthouseholdsurvey;
+                      cell7.innerHTML = resposta.latestagriculturalcensus;
+                      cell8.innerHTML = resposta.latestindustrialdata;
+                      cell9.innerHTML = resposta.latesttradedata;
+                    }
+            } 
+        });    
+      }
+    } 
+
+  function getAllCountryInfo() {
+    var div = document.getElementById("div01");
+    div.style.display = "block";
+    var table = document.getElementById("table1");
+    var first = true;
+    if(first){
+      var row = table.insertRow(1);
+      
+      var cell0 = row.insertCell(0);
+      var cell1 = row.insertCell(1);
+      var cell2 = row.insertCell(2);
+      var cell3 = row.insertCell(3);
+      var cell4 = row.insertCell(4);
+      var cell5 = row.insertCell(5);
+      var cell6 = row.insertCell(6);
+      var cell7 = row.insertCell(7);
+      var cell8 = row.insertCell(8);
+      var cell9 = row.insertCell(9);
+    }
+    
+    if (CountryCode.length == 3) {
+      var xhttp = new XMLHttpRequest();
+      var url = "http://35.190.114.222/country/ALL";
+        
+      $.ajax({
+            type: "GET", 
+            url: url,
+            timeout: 3000,
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            beforeSend: function() {
+                $("h2").html("Carregando..."); //Carregando
+            },
+            error: function() {
+                $("h2").html("O servidor não conseguiu processar o pedido");
+            },
+            success: function(resposta) {
+                    // Interpretando retorno JSON...
+                    first = false;
+                    for (country in resposta) {
+                      cell0.innerHTML = country.shortname;
+                      cell1.innerHTML = country.longname;
+                      cell2.innerHTML = country.currencyunit;
+                      cell3.innerHTML = country.region;
+                      cell4.innerHTML = country.incomegroup;
+                      cell5.innerHTML = country.latestpopulationcensus;
+                      cell6.innerHTML = country.latesthouseholdsurvey;
+                      cell7.innerHTML = country.latestagriculturalcensus;
+                      cell8.innerHTML = country.latestindustrialdata;
+                      cell9.innerHTML = country.latesttradedata;
+                    }  
+            } 
+        });    
+      }
+    } 
+
+  function addIndicator(){
+      var countryName = document.getElementById("countryName").value;
+      var countryCode = document.getElementById("countryCode").value;
+      var indicatorName = document.getElementById("indicatorName").value;
+      var indicatorCode = document.getElementById("indicatorCode").value;
+      var year = document.getElementById("year").value;
+      var value = document.getElementById("value").value;
+      
+      var xhttp = new XMLHttpRequest();
+      var url = "http://35.190.114.222/indicator/";
+      
+      var obj = new Object();
+      
+      obj.countryname = countryName;
+      obj.countrycode = countryCode;
+      obj.indicatorname = indicatorName;
+      obj.indicatorcode = indicatorCode;
+      obj.year = year;
+      obj.value = value;
+      $.post(url, obj);
 }
-
-
-
-
 </script>
