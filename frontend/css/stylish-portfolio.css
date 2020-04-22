@@ -365,7 +365,7 @@ a:hover, a:focus, a:active {
 }
 
 table, th, td {
-  border-collapse: collapse;
+  border-collapse: collapse !important;
 }
 
 tr {
