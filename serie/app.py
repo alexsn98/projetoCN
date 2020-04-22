@@ -36,7 +36,7 @@ def get_serie(indicatorCode):
         data = (indicatorCode, )
         cur.execute(get_serie_query, data)
         
-        query_result = cur.fetch_one()
+        query_result = cur.fetchone()
 
         if query_result is not None:
             r = make_response(jsonify(query_result))
