@@ -365,9 +365,10 @@ a:hover, a:focus, a:active {
 }
 
 table, th, td {
-  border: 21px solid white;
+  border: 2px solid white !important;
   border-collapse: collapse;
 }
+
 th, td {
   padding: 15px;
 }
