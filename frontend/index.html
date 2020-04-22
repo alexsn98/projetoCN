@@ -81,7 +81,7 @@
             </div>
             <div class="form-group">
               <label for="text">Indicator Name</label>
-              <input type="password" class="form-control" id="indicatorName" name="fname" placeholder="Insert Indicator Name">
+              <input type="text" class="form-control" id="indicatorName" name="fname" placeholder="Insert Indicator Name">
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Indicator Code</label>
@@ -399,7 +399,6 @@
       var url = "http://35.190.114.222/indicator/" + country;
   
       
-        
       $.ajax({
             type: "GET", 
             url: url,
@@ -427,8 +426,8 @@
                         cell0.innerHTML = resposta[i].countryname;
                         cell1.innerHTML = resposta[i].indicatorname;
                         cell2.innerHTML = resposta[i].indicatorcode;
-                        cell3.innerHTML = resposta[i].contributions ;
-                        cell4.innerHTML = resposta[i].value ;
+                        cell3.innerHTML = resposta[i].contributions;
+                        cell4.innerHTML = resposta[i].value;
                         cell5.innerHTML = resposta[i].year;
             }
                       
@@ -446,7 +445,7 @@
         var value = document.getElementById("value").value;
         
         var xhttp = new XMLHttpRequest();
-        var url = "http://35.190.114.222/indicator/";
+        var url = "http://35.190.114.222/indicator";
         if(countryName.length > 0 && countryCode.length == 3 && indicatorName.length > 0 && indicatorCode.length > 0){
         var obj = new Object();
         

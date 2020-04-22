@@ -33,16 +33,19 @@ def add_indicator():
 
     request_data = request.get_json()
 
-    add_indicator_query = "INSERT INTO indicators (countryname, countrycode, indicatorname, indicatorcode, year, value) VALUES (%s, %s, %s, %s, %s, %s);"
+    if re.search("^[A-Z.]+$", request_data["indicatorcode"]):
+        add_indicator_query = "INSERT INTO indicators (countryname, countrycode, indicatorname, indicatorcode, year, value) VALUES (%s, %s, %s, %s, %s, %s);"
 
-    data = (request_data['countryname'], request_data['countrycode'], request_data['indicatorname'], 
-    request_data['indicatorcode'], request_data['year'], request_data['value'], )
+        data = (request_data['countryname'], request_data['countrycode'], request_data['indicatorname'], 
+        request_data['indicatorcode'], request_data['year'], request_data['value'], )
 
-    cur.execute(add_indicator_query, data)
-    conn.commit()
+        cur.execute(add_indicator_query, data)
+        conn.commit()
 
-    return "OK"
+        return "OK"
 
+    else:
+        return "Bad indicator code"
 
 @app.route('/indicator/<countryCode>', methods=['GET'])
 def get_indicator(countryCode):
