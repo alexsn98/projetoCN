@@ -1,178 +1,344 @@
 <!DOCTYPE html>
+<html lang="en">
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<style>
-  * {
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-  }
-  th, td {
-    padding: 15px;
-  }
-  div.div1 , div.div2 , div.div3{
-  display: none;
-  }
-</style>
+<head>
 
-<html>
-<body>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-<h1>Computacao em Nuvem - Projeto</h1>
+  <title>Projeto CN - Grupo 8</title>
 
-<p>Alexandre Nascimento</p>
-<p>Bruno Teixeira</p>
-<p>Paulo Alvares</p>
-<br> 
+  <!-- Bootstrap Core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<div>
-  <form>
-      <h3>Create a new indicator:</h3>
-      <input type="text" id="countryName" name="fname" placeholder="Country Short Name">
-      <br><br> 
-      <input type="text" id="countryCode" name="fname" placeholder="Country Code">
-      <br><br> 
-      <input type="text" id="indicatorName" name="fname" placeholder="Indicator Name">
-      <br><br> 
-      <input type="text" id="indicatorCode" name="fname" placeholder="Indicator Code">
-      <br><br> 
-      <input type="number" min="1900" max="2020" id="year" name="fname" placeholder="Year">
-      <br><br> 
-      <input type="number" id="value" name="fname" placeholder="Value">
-      <br><br> 
-    <button type="submit" form="addIndicator" value="Submit" onclick="addIndicator()">Submit</button>
+  <!-- Custom Fonts -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="css/stylish-portfolio.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Navigation -->
+  <a class="menu-toggle rounded" href="#">
+    <i class="fas fa-bars"></i>
+  </a>
+  <nav id="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li class="sidebar-brand">
+        <a class="js-scroll-trigger" href="#page-top">Projeto CN - Grupo 8</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#page-top">Home</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#about">Create a new indicator</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#services">Show countries</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#indicatorForm">Show countries indicator</a>
+      </li>
+      <li class="sidebar-nav-item">
+        <a class="js-scroll-trigger" href="#portfolio">Show indicator info</a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header class="masthead d-flex">
+    <div class="container text-center my-auto">
+      <h1 class="mb-1">Computação em Nuvem  Projeto</h1>
+      <h3 class="mb-5">
+        <em>Alexandre Nascimento | Bruno Teixeira | Paulo Alvares </em>
+      </h3>
+      <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Lets go</a>
+    </div>
+    <div class="overlay"></div>
+  </header>
+
+  <!-- About -->
+  <section class="content-section bg-light" id="about">
+    <div class="container text-center">
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+          <h2>Create a new indicator:</h2>
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Country Short Name</label>
+              <input type="text" class="form-control" id="countryName" name="fname" placeholder="Insert Country Short Name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Country Code</label>
+              <input type="text" class="form-control" id="countryCode" name="fname" placeholder="Insert Country Code">
+            </div>
+            <div class="form-group">
+              <label for="text">Indicator Name</label>
+              <input type="password" class="form-control" id="indicatorName" name="fname" placeholder="Insert Indicator Name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Indicator Code</label>
+              <input type="text" class="form-control" id="indicatorCode" name="fname" placeholder="Insert Indicator Code">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Year</label>
+              <input type="number" class="form-control" min="1900" max="2020" id="year" name="fname" placeholder="Year">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Value</label>
+              <input type="number" class="form-control" id="value" name="fname" placeholder="Insert value">
+            </div>
+            <button type="submit" class="btn btn-primary"form="addIndicator" value="Submit" onclick="addIndicator()" style="background-color: #31778d!important; border-color: #31778d!important;">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="content-section bg-primary text-white text-center" id="services">
+    <div class="container">
+       <form id="countryForm">
+    <h3>Show country:</h3>
+    <label for="fname">Country code:</label><br>
+    <input type="text" id="countryCodeSearchCode" name="fname" placeholder="Country Code"> 
+    <button type="submit" form="getCountry" class="btn btn-primary" value="Submit" onclick="getCountryInfo()" style="background-color: #31778d!important;border-color: #31778d!important;">Submit</button>
   </form>
-</div>
-
-<br>
-
-<form id="countryForm">
-  <h3>Show country:</h3>
-  <label for="fname">Country code:</label><br>
-  <input type="text" id="countryCodeSearchCode" name="fname" placeholder="Country Code"> 
-  <button type="submit" form="getCountry" value="Submit" onclick="getCountryInfo()">Submit</button>
-</form>
-<h3>Show all countries:</h3>
-<button type="submit" value="Submit" onclick="getAllCountriesInfo()">Submit</button>
-<br> 
-<br><br>
-
-<div id="div01" class="div1">
-  <button value="Clear Table" onclick="clearTable('table1')">Clear Table</button>
-  <table id="table1" style="width:100%">
-    <tr>
-      <th>Short Name</th>
-      <th>Long Name</th>
-      <th>Currency Unit</th>
-      <th>Region</th>
-      <th>Income Group</th>
-      <th>Latest Population Census</th>
-      <th>Latest Household Survey</th>
-      <th>Latest Agricultural Census</th>
-      <th>Latest Industrial Data</th>
-      <th>Latest Trade Data</th>
-    </tr>
-  </table>
-
+  <h3 style="margin-top:2%;">Show all countries:</h3>
+  <button type="submit" value="Submit" class="btn btn-primary" onclick="getAllCountriesInfo()" style="background-color: #31778d!important; border-color: #31778d!important;">Submit</button>
+  <br> 
   <br><br>
-</div>
 
-<form id="indicatorForm">
-  <h3>Show country indicators:</h3>
-  <label for="fname">Country code:</label><br>
-  <input type="text" id="countryCode1" name="fname" placeholder="Country Code"> 
-  <input type="number" min="1900" max="2020" step="1" id="yearL" value="2019" />
-  <button type="submit" form="getCountry" value="Submit" onclick="getCountryIndicators()">Submit</button>
-</form>
-<br> 
+  <div id="div01" class="div1">
+    <button value="Clear Table" class="btn btn-primary" onclick="clearTable('table1')" style="background-color: #31778d!important; border-color: #31778d!important;">Clear Table</button>
+    <table id="table1" style="width:100%; margin-top:5%;">
+      <tr>
+        <th>Short Name</th>
+        <th>Long Name</th>
+        <th>Currency Unit</th>
+        <th>Region</th>
+        <th>Income Group</th>
+        <th>Latest Population Census</th>
+        <th>Latest Household Survey</th>
+        <th>Latest Agricultural Census</th>
+        <th>Latest Industrial Data</th>
+        <th>Latest Trade Data</th>
+      </tr>
+    </table>
 
-<div id="div02" class="div2">
-  <button value="Clear Table" onclick="clearTable('table2')">Clear Table</button>
-  <table id="table2" style="width:100%">
-    <tr>
-      <th>Country Name</th>
-      <th>Indicator Code</th>
-      <th>Indicator Name</th>
-      <th>Contributions </th>
-      <th>Value</th>
-      <th>Year</th>
+    <br><br>
+  </div>
+    </div>
+  </section>
 
-    </tr>
-  </table>
+  <!-- Callout -->
+  <section class="callout">
+    <div class="container text-center">
+      <form id="indicatorForm">
+        <h3>Show country indicators:</h3>
+        <label for="fname">Country code:</label><br>
+        <input type="text" id="countryCode1" name="fname" placeholder="Country Code"> 
+        <input type="number" min="1900" max="2020" step="1" id="yearL" value="2019" />
+        <button type="submit" form="getCountry" style="background-color: #31778d!important; border-color: #31778d!important;" class="btn btn-primary" value="Submit" onclick="getCountryIndicators()">Submit</button>
+      </form>
+      <br> 
+    
+      <div id="div02" class="div2">
+        <button value="Clear Table" class="btn btn-primary" onclick="clearTable('table2')" style="background-color: #31778d!important; border-color: #31778d!important;">Clear Table</button>
+        <table id="table2" style="width:100%; margin-top:5%;">
+          <tr>
+            <th>Country Name</th>
+            <th>Indicator Code</th>
+            <th>Indicator Name</th>
+            <th>Contributions </th>
+            <th>Value</th>
+            <th>Year</th>
+    
+          </tr>
+        </table>
+    
+        <br><br>
+      </div>
+    </div>
+  </section>
 
-  <br><br>
-</div>
+  <!-- Portfolio -->
+  <section class="content-section" id="portfolio" style="background-color: #1d809f!important; color: white !important;" > 
+    <div class="container">
+      <form id="indicatorInfoForm" style="width: 24%;margin-left: 36%;">
+        <h3>Show indicator info:</h3>
+        <label for="fname">Indicator code:</label><br>
+        <input type="text" id="indicatorCodePlace" name="fname" placeholder="Country Code"> 
+        <button type="submit" class="btn btn-primary" form="getCountry" value="Submit" onclick="getSerieInfo()" style="background-color: #31778d!important;
+        border-color: #31778d!important;">Submit</button>
+      </form>
+      <br> 
+    
+      <div id="div03" class="div3">
+        <button value="Clear Table" class="btn btn-primary" onclick="clearTable('table3')" style="margin-left: 43%;background-color: #31778d!important;
+        border-color: #31778d!important;">Clear Table</button>
+        <table id="table3" style="width:100%;margin-top:5%;">
+          <tr>
+            <th>Indicator Name</th>
+            <th>Long Definition</th>
+            <th>Series Code</th>
+            <th>Source</th>
+            <th>Topic</th>
+            <th>Unit of Measure</th>
+    
+          </tr>
+        </table>
+        <br><br>
+      </div>
+    </div>
+  </section>
 
-<form id="indicatorInfoForm">
-  <h3>Show indicator info:</h3>
-  <label for="fname">Indicator code:</label><br>
-  <input type="text" id="indicatorCodePlace" name="fname" placeholder="Country Code"> 
-  <button type="submit" form="getCountry" value="Submit" onclick="getSerieInfo()">Submit</button>
-</form>
-<br> 
+  <!-- Call to Action -->
 
-<div id="div03" class="div3">
-  <button value="Clear Table" onclick="clearTable('table3')">Clear Table</button>
-  <table id="table3" style="width:100%">
-    <tr>
-      <th>Indicator Name</th>
-      <th>Long Definition</th>
-      <th>Series Code</th>
-      <th>Source</th>
-      <th>Topic</th>
-      <th>Unit of Measure</th>
 
-    </tr>
-  </table>
-  <br><br>
-</div>
+  <!-- Map -->
 
-</body>
-</html>
 
-<script>
-  showedCountries = [];
+  <!-- Footer -->
+  <footer class="footer text-center">
+    <div class="container">
+      <ul class="list-inline mb-5">
+        <li class="list-inline-item">
+          <a class="social-link rounded-circle text-white mr-3" href="#">
+            <i class="icon-social-facebook"></i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="social-link rounded-circle text-white mr-3" href="#">
+            <i class="icon-social-twitter"></i>
+          </a>
+        </li>
+        <li class="list-inline-item">
+          <a class="social-link rounded-circle text-white" href="#">
+            <i class="icon-social-github"></i>
+          </a>
+        </li>
+      </ul>
+      <p class="text-muted small mb-0">Copyright &copy; Your Website 2019</p>
+    </div>
+  </footer>
 
-  $(function() {
-    $("#countryForm").submit(function() { 
-      getCountryInfo();
-      return false; 
-      });
-  });
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded js-scroll-trigger" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/stylish-portfolio.min.js"></script>
+  <script>
+    showedCountries = [];
   
-  $(function() {
-    $("#indicatorForm").submit(function() { 
-      getCountryInfo();
-      return false; 
-      });
-  });
+    $(function() {
+      $("#countryForm").submit(function() { 
+        getCountryInfo();
+        return false; 
+        });
+    });
+    
+    $(function() {
+      $("#indicatorForm").submit(function() { 
+        getCountryInfo();
+        return false; 
+        });
+    });
+    
+    $(function() {
+      $("#indicatorInfoForm").submit(function() { 
+        getCountryInfo();
+        return false; 
+        });
+    });
+    
+    function clearTable(tableId){
+    $('#' + tableId +' tr:not(:first-child)').remove();
+    showedCountries = [];
+    }
+    
+    function getCountryInfo() {
+      var countryCode = document.getElementById("countryCodeSearchCode").value;
+      var div = document.getElementById("div01");
+      var table = document.getElementById("table1");
+    
+      console.log(countryCode);
   
-  $(function() {
-    $("#indicatorInfoForm").submit(function() { 
-      getCountryInfo();
-      return false; 
-      });
-  });
+      if (!showedCountries.includes(countryCode)) {
+        showedCountries.push(countryCode);
   
-  function clearTable(tableId){
-	$('#' + tableId +' tr:not(:first-child)').remove();
-	showedCountries = [];
-  }
+        var xhttp = new XMLHttpRequest();
+        var url = "http://35.190.114.222/country/" + countryCode;
+          
+        $.ajax({
+              type: "GET", 
+              url: url,
+              timeout: 3000,
+              contentType: "application/json; charset=utf-8",
+              cache: false,
+              beforeSend: function() {
+                  $("h2").html("Carregando..."); //Carregando
+              },
+              error: function() {
+                  $("h2").html("O servidor não conseguiu processar o pedido");
+              },
+              success: function(resposta) {
+                      if(resposta[0] != "Nenhum Pais encontrado"){
+                        div.style.display = "block";
   
-  function getCountryInfo() {
-    var countryCode = document.getElementById("countryCodeSearchCode").value;
-    var div = document.getElementById("div01");
-    var table = document.getElementById("table1");
+                        var row = table.insertRow(1);
   
-    console.log(countryCode);
-
-    if (!showedCountries.includes(countryCode)) {
-      showedCountries.push(countryCode);
-
+                        var cell0 = row.insertCell(0);
+                        var cell1 = row.insertCell(1);
+                        var cell2 = row.insertCell(2);
+                        var cell3 = row.insertCell(3);
+                        var cell4 = row.insertCell(4);
+                        var cell5 = row.insertCell(5);
+                        var cell6 = row.insertCell(6);
+                        var cell7 = row.insertCell(7);
+                        var cell8 = row.insertCell(8);
+                        var cell9 = row.insertCell(9);
+  
+                        cell0.innerHTML = resposta.shortname;
+                        cell1.innerHTML = resposta.longname;
+                        cell2.innerHTML = resposta.currencyunit;
+                        cell3.innerHTML = resposta.region;
+                        cell4.innerHTML = resposta.incomegroup;
+                        cell5.innerHTML = resposta.latestpopulationcensus;
+                        cell6.innerHTML = resposta.latesthouseholdsurvey;
+                        cell7.innerHTML = resposta.latestagriculturalcensus;
+                        cell8.innerHTML = resposta.latestindustrialdata;
+                        cell9.innerHTML = resposta.latesttradedata;
+                      }
+              } 
+          });    
+        }
+      } 
+  
+    function getAllCountriesInfo() {
+      var div = document.getElementById("div01");
+      div.style.display = "block";
+      var table = document.getElementById("table1");
       var xhttp = new XMLHttpRequest();
-      var url = "http://35.190.114.222/country/" + countryCode;
+      var url = "http://35.190.114.222/country/ALL";
+  
+      
         
       $.ajax({
             type: "GET", 
@@ -187,205 +353,155 @@
                 $("h2").html("O servidor não conseguiu processar o pedido");
             },
             success: function(resposta) {
-                    if(resposta[0] != "Nenhum Pais encontrado"){
-                      div.style.display = "block";
-
-                      var row = table.insertRow(1);
-
-                      var cell0 = row.insertCell(0);
-                      var cell1 = row.insertCell(1);
-                      var cell2 = row.insertCell(2);
-                      var cell3 = row.insertCell(3);
-                      var cell4 = row.insertCell(4);
-                      var cell5 = row.insertCell(5);
-                      var cell6 = row.insertCell(6);
-                      var cell7 = row.insertCell(7);
-                      var cell8 = row.insertCell(8);
-                      var cell9 = row.insertCell(9);
-
-                      cell0.innerHTML = resposta.shortname;
-                      cell1.innerHTML = resposta.longname;
-                      cell2.innerHTML = resposta.currencyunit;
-                      cell3.innerHTML = resposta.region;
-                      cell4.innerHTML = resposta.incomegroup;
-                      cell5.innerHTML = resposta.latestpopulationcensus;
-                      cell6.innerHTML = resposta.latesthouseholdsurvey;
-                      cell7.innerHTML = resposta.latestagriculturalcensus;
-                      cell8.innerHTML = resposta.latestindustrialdata;
-                      cell9.innerHTML = resposta.latesttradedata;
-                    }
+                    for (var i=0;i<resposta.length;i++) {
+                      if (!showedCountries.includes(resposta[i].countrycode) && resposta[i].currencyunit != null) {
+                        showedCountries.push(resposta[i].countryCode);
+  
+                        var row = table.insertRow(1);
+      
+                        var cell0 = row.insertCell(0);
+                        var cell1 = row.insertCell(1);
+                        var cell2 = row.insertCell(2);
+                        var cell3 = row.insertCell(3);
+                        var cell4 = row.insertCell(4);
+                        var cell5 = row.insertCell(5);
+                        var cell6 = row.insertCell(6);
+                        var cell7 = row.insertCell(7);
+                        var cell8 = row.insertCell(8);
+                        var cell9 = row.insertCell(9);
+  
+                        cell0.innerHTML = resposta[i].shortname;
+                        cell1.innerHTML = resposta[i].longname;
+                        cell2.innerHTML = resposta[i].currencyunit;
+                        cell3.innerHTML = resposta[i].region;
+                        cell4.innerHTML = resposta[i].incomegroup;
+                        cell5.innerHTML = resposta[i].latestpopulationcensus;
+                        cell6.innerHTML = resposta[i].latesthouseholdsurvey;
+                        cell7.innerHTML = resposta[i].latestagriculturalcensus;
+                        cell8.innerHTML = resposta[i].latestindustrialdata;
+                        cell9.innerHTML = resposta[i].latesttradedata;
+                      }
+                    }  
             } 
         });    
-      }
-    } 
-
-  function getAllCountriesInfo() {
-    var div = document.getElementById("div01");
-    div.style.display = "block";
-    var table = document.getElementById("table1");
-    var xhttp = new XMLHttpRequest();
-    var url = "http://35.190.114.222/country/ALL";
-
-    
       
-    $.ajax({
-          type: "GET", 
-          url: url,
-          timeout: 3000,
-          contentType: "application/json; charset=utf-8",
-          cache: false,
-          beforeSend: function() {
-              $("h2").html("Carregando..."); //Carregando
-          },
-          error: function() {
-              $("h2").html("O servidor não conseguiu processar o pedido");
-          },
-          success: function(resposta) {
-                  for (var i=0;i<resposta.length;i++) {
-                    if (!showedCountries.includes(resposta[i].countrycode) && resposta[i].currencyunit != null) {
-                      showedCountries.push(resposta[i].countryCode);
-
-                      var row = table.insertRow(1);
+      } 
+  
     
-                      var cell0 = row.insertCell(0);
-                      var cell1 = row.insertCell(1);
-                      var cell2 = row.insertCell(2);
-                      var cell3 = row.insertCell(3);
-                      var cell4 = row.insertCell(4);
-                      var cell5 = row.insertCell(5);
-                      var cell6 = row.insertCell(6);
-                      var cell7 = row.insertCell(7);
-                      var cell8 = row.insertCell(8);
-                      var cell9 = row.insertCell(9);
-
-                      cell0.innerHTML = resposta[i].shortname;
-                      cell1.innerHTML = resposta[i].longname;
-                      cell2.innerHTML = resposta[i].currencyunit;
-                      cell3.innerHTML = resposta[i].region;
-                      cell4.innerHTML = resposta[i].incomegroup;
-                      cell5.innerHTML = resposta[i].latestpopulationcensus;
-                      cell6.innerHTML = resposta[i].latesthouseholdsurvey;
-                      cell7.innerHTML = resposta[i].latestagriculturalcensus;
-                      cell8.innerHTML = resposta[i].latestindustrialdata;
-                      cell9.innerHTML = resposta[i].latesttradedata;
-                    }
-                  }  
-          } 
-      });    
-    
-    } 
-
-	
-function getCountryIndicators() {
-    var div = document.getElementById("div02");
-	clearTable("table2");
-	var country = document.getElementById("countryCode1").value;
-	var year = document.getElementById("yearL").value;
-    div.style.display = "block";
-    var table = document.getElementById("table2");
-    var xhttp = new XMLHttpRequest();
-    var url = "http://35.190.114.222/indicator/" + country;
-
-    
-      
-    $.ajax({
-          type: "GET", 
-          url: url,
-          timeout: 3000,
-          contentType: "application/json; charset=utf-8",
-          cache: false,
-          beforeSend: function() {
-              $("h2").html("Carregando..."); //Carregando
-          },
-          error: function() {
-              $("h2").html("O servidor não conseguiu processar o pedido");
-          },
-          success: function(resposta) {
-                  for (var i=0;i<resposta.length;i++) {
-					if(parseInt(resposta[i].year)== year){
-                      var row = table.insertRow(1);
-    
-                      var cell0 = row.insertCell(0);
-                      var cell1 = row.insertCell(1);
-                      var cell2 = row.insertCell(2);
-                      var cell3 = row.insertCell(3);
-                      var cell4 = row.insertCell(4);
-                      var cell5 = row.insertCell(5);
-
-                      cell0.innerHTML = resposta[i].countryname;
-                      cell1.innerHTML = resposta[i].indicatorname;
-                      cell2.innerHTML = resposta[i].indicatorcode;
-                      cell3.innerHTML = resposta[i].contributions ;
-                      cell4.innerHTML = resposta[i].value ;
-                      cell5.innerHTML = resposta[i].year;
-					}
-                    
-                  }  
-          } 
-      });    
-    
-    } 
-  function addIndicator(){
-      var countryName = document.getElementById("countryName").value;
-      var countryCode = document.getElementById("countryCode").value;
-      var indicatorName = document.getElementById("indicatorName").value;
-      var indicatorCode = document.getElementById("indicatorCode").value;
-      var year = document.getElementById("year").value;
-      var value = document.getElementById("value").value;
-      
+  function getCountryIndicators() {
+      var div = document.getElementById("div02");
+    clearTable("table2");
+    var country = document.getElementById("countryCode1").value;
+    var year = document.getElementById("yearL").value;
+      div.style.display = "block";
+      var table = document.getElementById("table2");
       var xhttp = new XMLHttpRequest();
-      var url = "http://35.190.114.222/indicator/";
-      if(countryName.length > 0 && countryCode.length == 3 && indicatorName.length > 0 && indicatorCode.length > 0){
-      var obj = new Object();
+      var url = "http://35.190.114.222/indicator/" + country;
+  
       
-      obj.countryname = countryName;
-      obj.countrycode = countryCode;
-      obj.indicatorname = indicatorName;
-      obj.indicatorcode = indicatorCode;
-      obj.year = year;
-      obj.value = value;
-      $.post(url, obj);
-	  }
-  }
-
-  function getSerieInfo() {
-    var indicatorCode = document.getElementById("indicatorCodePlace").value;
-    var div = document.getElementById("div03");
-    div.style.display = "block";
-    var table = document.getElementById("table3");
+        
+      $.ajax({
+            type: "GET", 
+            url: url,
+            timeout: 3000,
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            beforeSend: function() {
+                $("h2").html("Carregando..."); //Carregando
+            },
+            error: function() {
+                $("h2").html("O servidor não conseguiu processar o pedido");
+            },
+            success: function(resposta) {
+                    for (var i=0;i<resposta.length;i++) {
+            if(parseInt(resposta[i].year)== year){
+                        var row = table.insertRow(1);
+      
+                        var cell0 = row.insertCell(0);
+                        var cell1 = row.insertCell(1);
+                        var cell2 = row.insertCell(2);
+                        var cell3 = row.insertCell(3);
+                        var cell4 = row.insertCell(4);
+                        var cell5 = row.insertCell(5);
   
-    var xhttp = new XMLHttpRequest();
-    var url = "http://35.190.114.222/serie/" + indicatorCode;
-    console.log(indicatorCode);
-    $.ajax({
-          type: "GET", 
-          url: url,
-          timeout: 3000,
-          contentType: "application/json; charset=utf-8",
-          cache: false,
-          beforeSend: function() {
-              $("h2").html("Carregando..."); //Carregando
-          },
-          error: function() {
-              $("h2").html("O servidor não conseguiu processar o pedido");
-          },
-          success: function(resposta) {
-                  var row = table.insertRow(1);
+                        cell0.innerHTML = resposta[i].countryname;
+                        cell1.innerHTML = resposta[i].indicatorname;
+                        cell2.innerHTML = resposta[i].indicatorcode;
+                        cell3.innerHTML = resposta[i].contributions ;
+                        cell4.innerHTML = resposta[i].value ;
+                        cell5.innerHTML = resposta[i].year;
+            }
+                      
+                    }  
+            } 
+        });    
+      
+      } 
+    function addIndicator(){
+        var countryName = document.getElementById("countryName").value;
+        var countryCode = document.getElementById("countryCode").value;
+        var indicatorName = document.getElementById("indicatorName").value;
+        var indicatorCode = document.getElementById("indicatorCode").value;
+        var year = document.getElementById("year").value;
+        var value = document.getElementById("value").value;
+        
+        var xhttp = new XMLHttpRequest();
+        var url = "http://35.190.114.222/indicator/";
+        if(countryName.length > 0 && countryCode.length == 3 && indicatorName.length > 0 && indicatorCode.length > 0){
+        var obj = new Object();
+        
+        obj.countryname = countryName;
+        obj.countrycode = countryCode;
+        obj.indicatorname = indicatorName;
+        obj.indicatorcode = indicatorCode;
+        obj.year = year;
+        obj.value = value;
+        $.post(url, obj);
+      }
+    }
   
-                  var cell0 = row.insertCell(0);
-                  var cell1 = row.insertCell(1);
-                  var cell2 = row.insertCell(2);
-                  var cell3 = row.insertCell(3);
-                  var cell4 = row.insertCell(4);
-                  var cell5 = row.insertCell(5);
+    function getSerieInfo() {
+      var indicatorCode = document.getElementById("indicatorCodePlace").value;
+      var div = document.getElementById("div03");
+      div.style.display = "block";
+      var table = document.getElementById("table3");
+    
+      var xhttp = new XMLHttpRequest();
+      var url = "http://35.190.114.222/serie/" + indicatorCode;
+      console.log(indicatorCode);
+      $.ajax({
+            type: "GET", 
+            url: url,
+            timeout: 3000,
+            contentType: "application/json; charset=utf-8",
+            cache: false,
+            beforeSend: function() {
+                $("h2").html("Carregando..."); //Carregando
+            },
+            error: function() {
+                $("h2").html("O servidor não conseguiu processar o pedido");
+            },
+            success: function(resposta) {
+                    var row = table.insertRow(1);
+    
+                    var cell0 = row.insertCell(0);
+                    var cell1 = row.insertCell(1);
+                    var cell2 = row.insertCell(2);
+                    var cell3 = row.insertCell(3);
+                    var cell4 = row.insertCell(4);
+                    var cell5 = row.insertCell(5);
+  
+                    cell0.innerHTML = resposta[0].indicatorname;
+                    cell1.innerHTML = resposta[0].longdefinition;
+                    cell2.innerHTML = resposta[0].seriescode;
+                    cell3.innerHTML = resposta[0].source;
+                    cell4.innerHTML = resposta[0].topic;
+                    cell5.innerHTML = resposta[0].unitofmeasure;  
+            } 
+        });    
+    }
+  </script>
 
-                  cell0.innerHTML = resposta[0].indicatorname;
-                  cell1.innerHTML = resposta[0].longdefinition;
-                  cell2.innerHTML = resposta[0].seriescode;
-                  cell3.innerHTML = resposta[0].source;
-                  cell4.innerHTML = resposta[0].topic;
-                  cell5.innerHTML = resposta[0].unitofmeasure;  
-          } 
-      });    
-  }
-</script>
+</body>
+
+</html>
