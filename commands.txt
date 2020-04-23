@@ -1,0 +1,63 @@
+<----------------------------------------------------------------------------------------------------------->
+
+gcloud container clusters resize cloudcomputingcluster --num-nodes=0/4 --region=europe-west1-d
+
+<----------------------------------------------------------------------------------------------------------->
+<commands to pull the containers from a container registry (chosen by the group) >
+
+docker pull gcr.io/cloudcomputingproject-272814/country:vX
+docker pull gcr.io/cloudcomputingproject-272814/indicator:vX
+docker pull gcr.io/cloudcomputingproject-272814/serie:vX
+docker pull gcr.io/cloudcomputingproject-272814/frontend:vX
+<----------------------------------------------------------------------------------------------------------->
+
+
+<----------------------------------------------------------------------------------------------------------->
+<                 commands to deploy the containers and run the application                 >
+
+Visto que não conseguimos fazer deploy apenas com o docker, passámos para o 
+Kubernetes e fizemos o deploy lá, utilizando Workloads e Services.
+<----------------------------------------------------------------------------------------------------------->
+
+
+
+<----------------------------------------------------------------------------------------------------------->
+<                Automation scripts for deploying and running the application                 >
+< 							nota: na CloudShell                                           >
+
+
+gcloud config set project cloudcomputingproject-272814
+git pull (or git clone if the project isn't there)
+
+cd country
+docker build -t gcr.io/cloudcomputingproject-272814/country:vX .
+docker push gcr.io/cloudcomputingproject-272814/country:vX
+cd ..
+
+cd indicator
+docker build -t gcr.io/cloudcomputingproject-272814/indicator:vX .
+docker push gcr.io/cloudcomputingproject-272814/indicator:vX
+cd ..
+
+cd series
+docker build -t gcr.io/cloudcomputingproject-272814/serie:vX .
+docker push gcr.io/cloudcomputingproject-272814/serie:vX
+cd ..
+
+cd frontend
+docker build -t gcr.io/cloudcomputingproject-272814/frontend:vX .
+docker push gcr.io/cloudcomputingproject-272814/frontend:vX
+cd ..
+
+kubectl create -f country.yaml
+kubectl create -f indicator.yaml
+kubectl create -f serie.yaml
+kubectl create deployment frontend --image=gcr.io/cloudcomputingproject-272814/frontend:vXX
+
+kubectl expose deployment country --type=NodePort --port 80 --target-port 5000
+kubectl expose deployment indicator --type=NodePort --port 80 --target-port 5000
+kubectl expose deployment serie --type=NodePort --port 80 --target-port 5000
+kubectl expose deployment frontend --type=NodePort --port 80
+
+kubectl create -f ingress.yaml
+<----------------------------------------------------------------------------------------------------------->
