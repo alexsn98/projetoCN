@@ -14,7 +14,7 @@ metadata:
   uid: 3a15b442-776c-11ea-b345-42010a8400ad
 spec:
   progressDeadlineSeconds: 600
-  replicas: 1
+  replicas: 2
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -47,7 +47,7 @@ spec:
             secretKeyRef:
               key: dbname
               name: cloudsql-db-credentials
-        image: gcr.io/cloudcomputingproject-272814/indicator:v3
+        image: gcr.io/cloudcomputingproject-272814/indicator:v5
         imagePullPolicy: IfNotPresent
         name: indicator
         resources: {}

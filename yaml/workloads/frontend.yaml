@@ -1,20 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "15"
-  creationTimestamp: "2020-04-06T23:08:32Z"
-  generation: 15
   labels:
     app: frontend
   name: frontend
-  namespace: default
-  resourceVersion: "1942460"
-  selfLink: /apis/apps/v1/namespaces/default/deployments/frontend
-  uid: 88d8ead7-785b-11ea-b345-42010a8400ad
 spec:
   progressDeadlineSeconds: 600
-  replicas: 1
+  replicas: 2
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -31,7 +23,7 @@ spec:
         app: frontend
     spec:
       containers:
-      - image: gcr.io/cloudcomputingproject-272814/frontend:v12
+      - image: gcr.io/cloudcomputingproject-272814/frontend:v39
         imagePullPolicy: IfNotPresent
         name: frontend
         resources: {}
