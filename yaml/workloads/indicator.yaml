@@ -47,7 +47,7 @@ spec:
             secretKeyRef:
               key: dbname
               name: cloudsql-db-credentials
-        image: gcr.io/cloudcomputingproject-272814/indicator:v5
+        image: alexsn98/indicator_cn:latest
         imagePullPolicy: IfNotPresent
         name: indicator
         resources: {}

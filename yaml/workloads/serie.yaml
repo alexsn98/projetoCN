@@ -47,7 +47,7 @@ spec:
             secretKeyRef:
               key: dbname
               name: cloudsql-db-credentials
-        image: gcr.io/cloudcomputingproject-272814/serie:v7
+        image: alexsn98/serie_cn:latest
         imagePullPolicy: IfNotPresent
         name: serie
         resources: {}

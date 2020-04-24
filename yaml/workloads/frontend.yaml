@@ -23,7 +23,7 @@ spec:
         app: frontend
     spec:
       containers:
-      - image: gcr.io/cloudcomputingproject-272814/frontend:v39
+      - image: alexsn98/frontend_cn:latest
         imagePullPolicy: IfNotPresent
         name: frontend
         resources: {}
