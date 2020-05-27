@@ -10,18 +10,18 @@ def get_from_db(indicator_code, region):
           host='127.0.0.1', port='5431')
   cur = db.cursor()
 
-  get_country_query = "SELECT i.CountryCode, i.indicatorCode ,i.Value " \
-    "FROM indicators i, country c WHERE c.Region =(%s) AND c.CountryCode = i.CountryCode AND" \
-    "(i.indicatorCode='EN.ATM.CO2E.KT' OR i.indicatorCode='SP.DYN.CDRT.IN') ORDER BY i.CountryCode;"
+  get_country_query = "SELECT i.year, i.indicatorCode ,i.Value " \
+    "FROM indicators i, country c WHERE c.Region ='Europe & Central Asia' AND c.CountryCode = i.CountryCode AND" \
+    "(i.indicatorCode='NY.GDP.PCAP.KD' OR i.indicatorCode='EN.ATM.CO2E.PC' OR i.indicatorCode='SI.POV.2DAY' OR i.indicatorCode='SI.POV.2DAY' " \
+    ") ORDER BY i.year;" 
 
-  data = (region, )
-  cur.execute(get_country_query, data)
+  cur.execute(get_country_query)
 
   return cur.fetchall()
 
+
 def create_csv_file(result, file_name):
   dataset = {}
-  dataset['countries'] = []
 
   years = set([i[1] for i in result])
 
@@ -39,7 +39,7 @@ def create_csv_file(result, file_name):
       countryYears = []
 
     if currentCountry != i[0]: #fill with zeros
-      notInYear = [y for y in years if y not in countryYears] #(╯°□°）╯︵ ┻━┻
+      notInYear = [y for y in years if y not in countryYears] 
 
       for y in notInYear:
         dataset[y].append(0)
@@ -73,6 +73,7 @@ def create_csv_file(result, file_name):
 
   df.to_csv(file_name, index=False)
 
+
 def train_regression(file_name):
   spark = SparkSession.builder.getOrCreate() 
 
@@ -98,16 +99,13 @@ def save_in_db():
   pass
 
 if __name__ == "__main__":
-  regions = ['East Asia & Pacific'] #,'Middle East & North Africa','Latin America & Caribbean','Europe & Central Asia','North America','Sub-Saharan Africa','South Asia']  
-  indicator_code = sys.argv[1]
+  #regions = ['East Asia & Pacific'],'Middle East & North Africa','Latin America & Caribbean','','North America','Sub-Saharan Africa','South Asia']  
+  indicator_code = ""
 
   for region in regions:
-    file_name = indicator_code + "&" + region + ".csv"
+    file_name = indicator_code + "_" + region + ".csv"
 
-    data = preProcessData.get_from_db(indicator_code, region)
-
-    print(data)
-
-    # preProcessData.create_csv_file(data, file_name)
+    data = get_from_db(indicator_code, region)
+    create_csv_file(data, file_name)
 
     # linearRegression.train_regression(file_name)
