@@ -47,7 +47,7 @@ spec:
             secretKeyRef:
               key: dbname
               name: cloudsql-db-credentials
-        image: alexsn98/linearegression:latest
+        image: alexsn98/regression_cn:latest
         imagePullPolicy: IfNotPresent
         name: serie
         resources: {}

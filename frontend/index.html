@@ -215,7 +215,7 @@
         <br><br>
         <br><br>
   <div id="div04" class="div1">
-    <button value="Clear Table" class="btn btn-primary" onclick="clearTable('table1')" style="background-color: #31778d!important; border-color: #31778d!important;">Clear Table</button>
+    <button value="Clear Table" class="btn btn-primary" onclick="clearTable('table4')" style="background-color: #31778d!important; border-color: #31778d!important;">Clear Table</button>
     <table id="table4" style="width:100%; margin-top:5%;">
       <tr>
         <th>Indicator Chosen</th>
@@ -264,16 +264,42 @@
   </div>
     </div>
   </section>
+
+<section class="callout" style="background-image: url(../img/aaa.png)!important;">
+    <div class="container text-center">
+      <form id="indicatorForm">
+        <h3>Predict a country indicator:</h3>
+        <label for="fname">Country code:</label><br>
+        <input type="text" id="countryCode5" name="fname" placeholder="Country Code"> 
+        <input type="number" min="2004" max="2011" step="1" id="yearL1" value="2019" />
+        <button type="submit" form="getCountry" style="background-color: #31778d!important; border-color: #31778d!important;" class="btn btn-primary" value="Submit" onclick="getCountryIndicators()">Submit</button>
+      </form>
+      <br> 
     
+      <div id="div05" class="div2">
+        <button value="Clear Table" class="btn btn-primary" onclick="clearTable('table5')" style="background-color: #31778d!important; border-color: #31778d!important;">Clear Table</button>
+        <table id="table5" style="width:100%; margin-top:5%;">
+          <tr>
+            <th>Country Name</th>
+            <th>Indicator Code</th>
+            <th>Indicator Name</th>
+            <th>Predicted Value</th>
+          </tr>
+        </table>
+    
+        <br><br>
+      </div>
+    </div>
+  </section>
   <!-- Callout -->
-  <section class="callout" style="background-image: url(../img/aaa.png)!important;">
+  <section class="callout" >
     <div class="container text-center">
       <form id="indicatorForm">
         <h3>Show country indicators:</h3>
         <label for="fname">Country code:</label><br>
         <input type="text" id="countryCode1" name="fname" placeholder="Country Code"> 
         <input type="number" min="1900" max="2020" step="1" id="yearL" value="2019" />
-        <button type="submit" form="getCountry" style="background-color: #31778d!important; border-color: #31778d!important;" class="btn btn-primary" value="Submit" onclick="getCountryIndicators()">Submit</button>
+        <button type="submit" form="getCountry" style="background-color: #31778d!important; border-color: #31778d!important;" class="btn btn-primary" value="Submit" onclick="getCountryPrediction()">Submit</button>
       </form>
       <br> 
     
@@ -399,7 +425,87 @@
     $('#' + tableId +' tr:not(:first-child)').remove();
     showedCountries = [];
     }
-    
+      
+    function getCountryRegression() {
+      
+      var div = document.getElementById("div05");
+      var table = document.getElementById("table5");
+        var countryChosen = document.getElementById("countryCode5").value;
+        var year = document.getElementById("yearL1").value;
+        console.log(countryChosen);
+        console.log(caseChosen);
+
+        var xhttp = new XMLHttpRequest();
+        var url = "http://35.190.114.222/regression/" + countryChosen "/" + year ;
+          
+        $.ajax({
+              type: "GET", 
+              url: url,
+              timeout: 3000,
+              contentType: "application/json; charset=utf-8",
+              cache: false,
+              beforeSend: function() {
+                  $("h2").html("Carregando..."); //Carregando
+              },
+              error: function() {
+                  $("h2").html("O servidor não conseguiu processar o pedido");
+              },
+              success: function(resposta) {
+                      
+                        //div.style.display = "block";
+
+                            var row = table.insertRow(1);
+
+                            var cell0 = row.insertCell(0);
+                            var cell1 = row.insertCell(1);
+                            var cell2 = row.insertCell(2);
+                            var cell3 = row.insertCell(3);
+                        var url = "http://35.190.114.222/country/" + resposta.country;
+                            $.ajax({
+                              type: "GET", 
+                              url: url,
+                              timeout: 3000,
+                              contentType: "application/json; charset=utf-8",
+                              cache: false,
+                              beforeSend: function() {
+                                  $("h2").html("Carregando..."); //Carregando
+                              },
+                              error: function() {
+                                  $("h2").html("O servidor não conseguiu processar o pedido");
+                              },
+                              success: function(resposta) {
+                                cell0.innerHTML = resposta.shortname;
+                              } 
+                          });    
+                            
+                            cell1.innerHTML = resposta.indicator.replace('-','.');
+                            
+                            var url = "http://35.190.114.222/serie/" + cell1.innerHTML;
+                            $.ajax({
+                              type: "GET", 
+                              url: url,
+                              timeout: 3000,
+                              contentType: "application/json; charset=utf-8",
+                              cache: false,
+                              beforeSend: function() {
+                                  $("h2").html("Carregando..."); //Carregando
+                              },
+                              error: function() {
+                                  $("h2").html("O servidor não conseguiu processar o pedido");
+                              },
+                              success: function(resposta) {
+                                cell2.innerHTML = resposta.indicatorname;
+                              } 
+                          });    
+                        
+                       
+                                
+                            cell3.innerHTML = resposta.prediction;
+                    }
+              } 
+          });    
+        
+      } 
       
     function getCountryCorrelation() {
       
@@ -409,11 +515,11 @@
         var countryChosen = e.options[e.selectedIndex].value;
         var e1 = document.getElementById("casedd");
         var caseChosen = e1.options[e1.selectedIndex].value;
-      console.log(countryChosen);
-  console.log(caseChosen);
+        console.log(countryChosen);
+        console.log(caseChosen);
 
         var xhttp = new XMLHttpRequest();
-        var url = "http://35.190.114.222/country/correlation/" +caseChosen "/"+ countryChosen ;
+        var url = "http://35.190.114.222/correlation/" +countryChosen "/"+ caseChosen ;
           
         $.ajax({
               type: "GET", 
@@ -455,7 +561,7 @@
                                   $("h2").html("O servidor não conseguiu processar o pedido");
                               },
                               success: function(resposta) {
-                                cell2.innerHTML = resposta.IndicatorName;
+                                cell2.innerHTML = resposta.indicatorname;
                               } 
                           });    
                         
