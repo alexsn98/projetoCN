@@ -101,7 +101,7 @@ def save_in_db(country, target, correlation_results):
   for corr_result in correlation_results:
     indicator_code = corr_result[0]
     correlation_value = corr_result[1]
-    add_correlation_query = "INSERT INTO correlation_result (country, indicatorcode, targetcode, correlationvalue) VALUES ('"+country+"','"+indicator_code+"','"+target+"','"+correlation_value+"');"
+    add_correlation_query = "INSERT INTO correlation_result (country, indicatorcode, targetcode, correlationvalue) VALUES ('"+country+"','"+indicator_code+"','"+target+"','"+str(correlation_value)+"');"
     cur.execute(add_correlation_query)
 
   conn.commit()
