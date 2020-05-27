@@ -6,7 +6,7 @@ from pyspark.sql import SQLContext
 from google.cloud import storage
 
 db = psycopg2.connect(dbname='postgres', user='postgres', password='CNgrupo8',
-          host='10.16.32.3', port='5432')
+        host='10.16.32.3', port='5432')
 
 conn, cur = (db, db.cursor())
 
