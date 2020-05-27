@@ -21,27 +21,27 @@ spec:
   - http:
       paths:
       - backend:
-          serviceName: country-service
+          serviceName: country
           servicePort: 80
         path: /country
       - backend:
-          serviceName: country-service
+          serviceName: country
           servicePort: 80
         path: /country/*
       - backend:
-          serviceName: indicator-service
+          serviceName: indicator
           servicePort: 80
         path: /indicator/*
       - backend:
-          serviceName: serie-service
+          serviceName: serie
           servicePort: 80
         path: /serie/*
       - backend:
-          serviceName: correlation-service
+          serviceName: correlation
           servicePort: 80
         path: /correlation/*
       - backend:
-          serviceName: regression-service
+          serviceName: linearegression
           servicePort: 80
         path: /regression/*
       - backend:
