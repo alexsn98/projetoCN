@@ -2,7 +2,11 @@
 <html lang="en">
 
 <head>
-
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -29,7 +33,14 @@
   th, td {
     padding: 15px;
   }
-  
+  #dropdown {
+    min-height:190px; 
+    overflow-y :auto; 
+    overflow-x:hidden; 
+    position:absolute;
+    width:300px;
+    display: contents;
+ }
   </style>
 </head>
 
@@ -116,6 +127,112 @@
   <section class="content-section bg-primary text-white text-center" id="services">
     <div class="container">
        <form id="countryForm">
+    <h3>Show country indicators correlation value:</h3>
+
+  </form>
+  <br> 
+  <br><br>
+    <div class="container">
+	<div class="row">
+	    <form class="col-md-4" id="dropdown">
+	        <label>Country Select</label>
+	        <select class="form-control select2" id="countrydd">
+	            <option value='ALB'>Albania</option>
+                <option value='ADO'>Andorra</option>
+                <option value='ARM'>Armenia</option>
+                <option value='AUT'>Austria</option>
+                <option value='AZE'>Azerbaijan</option>
+                <option value='BLR'>Belarus</option>
+                <option value='BEL'>Belgium</option>
+                <option value='BIH'>Bosnia and Herzegovina</option>
+                <option value='BGR'>Bulgaria</option>
+                <option value='CHI'>Channel Islands</option>
+                <option value='HRV'>Croatia</option>
+                <option value='CYP'>Cyprus</option>
+                <option value='CZE'>Czech Republic</option>
+                <option value='DNK'>Denmark</option>
+                <option value='EST'>Estonia</option>
+                <option value='FRO'>Faeroe Islands</option>
+                <option value='FIN'>Finland</option>
+                <option value='FRA'>France</option>
+                <option value='GEO'>Georgia</option>
+                <option value='DEU'>Germany</option>
+                <option value='GRC'>Greece</option>
+                <option value='GRL'>Greenland</option>
+                <option value='HUN'>Hungary</option>
+                <option value='ISL'>Iceland</option>
+                <option value='IRL'>Ireland</option>
+                <option value='IMY'>Isle of Man</option>
+                <option value='ITA'>Italy</option>
+                <option value='KAZ'>Kazakhstan</option>
+                <option value='KSV'>Kosovo</option>
+                <option value='KGZ'>Kyrgyz Republic</option>
+                <option value='LVA'>Latvia</option>
+                <option value='LIE'>Liechtenstein</option>
+                <option value='LTU'>Lithuania</option>
+                <option value='LUX'>Luxembourg</option>
+                <option value='MKD'>Macedonia</option>
+                <option value='MDA'>Moldova</option>
+                <option value='MCO'>Monaco</option>
+                <option value='MNE'>Montenegro</option>
+                <option value='NLD'>Netherlands</option>
+                <option value='NOR'>Norway</option>
+                <option value='POL'>Poland</option>
+                <option value='PRT'>Portugal</option>
+                <option value='ROM'>Romania</option>
+                <option value='RUS'>Russia</option>
+                <option value='SMR'>San Marino</option>
+                <option value='SRB'>Serbia</option>
+                <option value='SVK'>Slovak Republic</option>
+                <option value='SVN'>Slovenia</option>
+                <option value='ESP'>Spain</option>
+                <option value='SWE'>Sweden</option>
+                <option value='CHE'>Switzerland</option>
+                <option value='TJK'>Tajikistan</option>
+                <option value='TUR'>Turkey</option>
+                <option value='TKM'>Turkmenistan</option>
+                <option value='UKR'>Ukraine</option>
+                <option value='GBR'>United Kingdom</option>
+                <option value='UZB'>Uzbekistan</option>
+	        </select>
+	    </form>
+ 	</div>
+        
+        
+      <div class="row">
+	    <form class="col-md-4" id="dropdown">
+	        <label>Case Select</label>  
+            <select class="form-control select3" id="casedd">
+            <option value='case1'>Mortality</option>
+            <option value='case2'>CO2 Emissions and Country Evolution</option>
+            <option value='case3'>Child Labour</option>
+            </select>
+              </form>
+ 	</div>
+        <br><br>
+            <button type="submit" form="getCountry" class="btn btn-primary" value="Submit" onclick="getCountryCorrelation()" style="background-color: #31778d!important;border-color: #31778d!important;">Submit</button>
+</div>
+        <br><br>
+        <br><br>
+  <div id="div04" class="div1">
+    <button value="Clear Table" class="btn btn-primary" onclick="clearTable('table1')" style="background-color: #31778d!important; border-color: #31778d!important;">Clear Table</button>
+    <table id="table4" style="width:100%; margin-top:5%;">
+      <tr>
+        <th>Indicator Chosen</th>
+        <th>Indicator Name</th>
+        <th>Indicator Code</th>
+        <th>Correlation Value</th>
+      </tr>
+    </table>
+
+    <br><br>
+  </div>
+    </div>
+  </section>
+
+      <section class="content-section bg-primary text-white text-center" id="services">
+    <div class="container">
+       <form id="countryForm">
     <h3>Show country:</h3>
     <label for="fname">Country code:</label><br>
     <input type="text" id="countryCodeSearchCode" name="fname" placeholder="Country Code"> 
@@ -147,7 +264,7 @@
   </div>
     </div>
   </section>
-
+    
   <!-- Callout -->
   <section class="callout" style="background-image: url(../img/aaa.png)!important;">
     <div class="container text-center">
@@ -253,6 +370,8 @@
   <!-- Custom scripts for this template -->
   <script src="js/stylish-portfolio.min.js"></script>
   <script>
+      
+      
     showedCountries = [];
   
     $(function() {
@@ -281,6 +400,56 @@
     showedCountries = [];
     }
     
+      
+    function getCountryCorrelation() {
+      
+      var div = document.getElementById("div04");
+      var table = document.getElementById("table4");
+        var e = document.getElementById("countrydd");
+        var countryChosen = e.options[e.selectedIndex].value;
+        var e1 = document.getElementById("casedd");
+        var caseChosen = e1.options[e1.selectedIndex].value;
+      console.log(countryChosen);
+  console.log(caseChosen);
+
+        var xhttp = new XMLHttpRequest();
+        var url = "http://35.190.114.222/country/correlation/" + countryCode ;
+          
+        $.ajax({
+              type: "GET", 
+              url: url,
+              timeout: 3000,
+              contentType: "application/json; charset=utf-8",
+              cache: false,
+              beforeSend: function() {
+                  $("h2").html("Carregando..."); //Carregando
+              },
+              error: function() {
+                  $("h2").html("O servidor não conseguiu processar o pedido");
+              },
+              success: function(resposta) {
+                      if(resposta[0] != "Nenhum Pais encontrado"){
+                        div.style.display = "block";
+  
+                        var row = table.insertRow(1);
+  
+                        var cell0 = row.insertCell(0);
+                        var cell1 = row.insertCell(1);
+                        var cell2 = row.insertCell(2);
+                        var cell3 = row.insertCell(3);
+                        
+  
+                        cell0.innerHTML = resposta.chosenindicator;
+                        cell1.innerHTML = resposta.indicatorname;
+                        cell2.innerHTML = resposta.indicatorcode;
+                        cell3.innerHTML = resposta.value;
+                        
+                      }
+              } 
+          });    
+        
+      } 
+      
     function getCountryInfo() {
       var countryCode = document.getElementById("countryCodeSearchCode").value;
       var div = document.getElementById("div01");
@@ -505,6 +674,9 @@
             } 
         });    
     }
+      $(document).ready(function() {
+$('.mdb-select').materialSelect();
+});
   </script>
 
 </body>
