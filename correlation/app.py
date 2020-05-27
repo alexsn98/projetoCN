@@ -27,30 +27,36 @@ def close_connection(exception):
 def hello():
     return "Hello world!"
 
-@app.route('/correlation/<string:country_id>&<string:indicator_id>', methods=['GET'])
-def get_indicator_correlation(country_id, indicator_id):
+@app.route('/correlation/<string:country_id>/<string:case>', methods=['GET'])
+def get_indicator_correlation(country_id, case):
     cur = g.db.cursor()
 
-    #falta verificar indicador code
     if re.search("[A-Z]{3}", country_id): #valid country code
-        if re.search("^[A-Z.]+$", indicator_id): #valid indicator code
+        
+        get_correlation_query = "SELECT * FROM correlation_result WHERE countrycode=(%s) AND targetcode=(%s);"
 
-            get_correlation_query = "SELECT * FROM correlation_result WHERE countrycode=(%s) AND targetcode=(%s);"
-            data = (country_id, indicator_id, )
-            cur.execute(get_correlation_query, data)
-            
-            query_result = cur.fetchall()
-
-            if query_result is not None: #country exists
-                r = make_response(query_result)
-                r.status_code = 200
-
-            else: 
-                r = make_response("Correlation not found")
-                r.status_code = 404
+        if(case == "case1"):
+            data = (country_id, "EN.ATM.CO2E.PC", )
+        elif(case == "case2"):
+            data = (country_id, "SP.DYN.LE00.IN", )
+        elif(case == "case3"):
+            data = (country_id, "SE.ADT.LITR.ZS", ) #preencher o ultimo caso
         else:
-            r = make_response("Invalid indicator code supplied")
-            r.status_code = 400
+            r = make_response("No such case found")
+            r.status_code = 404
+            return r
+        
+        cur.execute(get_correlation_query, data)
+            
+        query_result = cur.fetchall()
+
+        if query_result is not None: #country exists
+            r = make_response(query_result)
+            r.status_code = 200
+
+        else: 
+            r = make_response("Correlation not found")
+            r.status_code = 404
     else:
         r = make_response("Invalid country code supplied")
         r.status_code = 400
