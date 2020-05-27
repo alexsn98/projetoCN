@@ -69,17 +69,9 @@ def get_correlation(target):
   sc= SparkContext()
   sqlContext = SQLContext(sc)
 
-  # source_blob_name = "corr.csv"
-  # destination_file_name = "corr.csv"
-  
-  # blob = bucket.blob(source_blob_name)
-  # blob.download_to_filename(destination_file_name)
-
   file_name_in_bucket = "gs://project-files-cn/"+ destination_blob_name
 
   df = sqlContext.read.format('com.databricks.spark.csv').options(header='true', inferschema='true').load(file_name_in_bucket)
-
-  print(df)
 
   minimum = 0.8
   correlation_results = []
@@ -107,33 +99,30 @@ def save_in_db(country, target, correlation_results):
   conn.commit()
 
 if __name__ == "__main__":
-  # db = psycopg2.connect(dbname='postgres', user='postgres', password='CNgrupo8',
-  #           host='10.16.32.3', port='5432')
+  db = psycopg2.connect(dbname='postgres', user='postgres', password='CNgrupo8',
+            host='10.16.32.3', port='5432')
 
-  # cur = db.cursor()
-  # get_countries_query = "SELECT DISTINCT CountryCode FROM indicators;"
+  cur = db.cursor()
+  get_countries_query = "SELECT DISTINCT CountryCode FROM indicators;"
 
-  # cur.execute(get_countries_query)
-  # countries = list(map(lambda x: x[0],cur.fetchall()))
+  cur.execute(get_countries_query)
+  countries = list(map(lambda x: x[0],cur.fetchall()))
 
-  # for country in countries:
-  #   get_country_indicators_query = "SELECT DISTINCT indicatorcode FROM indicators WHERE countrycode = ('"+ country +"');"
+  for country in countries:
+    get_country_indicators_query = "SELECT DISTINCT indicatorcode FROM indicators WHERE countrycode = ('"+ country +"');"
 
-  #   cur.execute(get_country_indicators_query)
-  #   indicators = list(map(lambda x: x[0],cur.fetchall()))
+    cur.execute(get_country_indicators_query)
+    indicators = list(map(lambda x: x[0],cur.fetchall()))
 
-  #   for indicator in indicators:
+    for indicator in indicators:
+      destination_blob_name = country + "_" + indicator + "_corr.csv"
 
-  country = "PRT"
-  indicator = "EN.ATM.CO2E.EG.ZS"
-  destination_blob_name = country + "_" + indicator + "_corr.csv"
+      indicator = indicator.replace('.', '-')
 
-  indicator = indicator.replace('.', '-')
+      db_data = get_data(country)
 
-  db_data = get_data(country)
+      build_csv_file(db_data)
 
-  build_csv_file(db_data)
+      correlation_results = get_correlation(indicator)
 
-  correlation_results = get_correlation(indicator)
-
-  save_in_db(country, indicator, correlation_results)
+      save_in_db(country, indicator, correlation_results)
