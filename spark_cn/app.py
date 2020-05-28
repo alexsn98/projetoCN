@@ -71,7 +71,7 @@ def get_indicator_regression(country_id, year):
     if re.search("[A-Z]{3}", country_id): #valid country code
         if (year >= 2011 & year <= 2014): #valid indicator code
 
-            get_regression_query = "SELECT * FROM regression_result WHERE countrycode=(%s) AND year=(%s);"
+            get_regression_query = "SELECT * FROM regression_result WHERE country=(%s) AND year=(%s);"
             data = (country_id, year, )
             cur.execute(get_regression_query, data)
             
