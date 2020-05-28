@@ -15,7 +15,7 @@ metadata:
   uid: a88f4f0c-7851-11ea-b345-42010a8400ad
 spec:
   backend:
-    serviceName: frontend-service
+    serviceName: frontend
     servicePort: 80
   rules:
   - http:
