@@ -19,9 +19,10 @@ bucket = storage_client.bucket(bucket_name)
 source_file_name = "corr.csv"
 destination_blob_name = "corr.csv"
 
-#use cases FALTA ADICIONAR
 use_cases = {}
+use_cases["EN.ATM.CO2E.PC"] = ["NY.GDP.PCAP.KD","SH.DTH.NCOM.ZS","AG.LND.AGRI.ZS","SH.XPD.PCAP.PP.KD","SE.TER.ENRR","SI.POV.2DAY","SL.UEM.TOTL.NE.ZS"]
 use_cases["SP.DYN.LE00.IN"] = ["SL.GDP.PCAP.EM.KD","SN.ITK.DEFC.ZS","VC.IHR.PSRC.P5","SH.DYN.NMRT","SH.DTH.IMRT","SH.DYN.MORT"]
+use_cases["SE.ADT.LITR.ZS"] = ["SI.POV.NAHC","SE.PRM.CMPT.ZS","SL.TLF.0714","SL.GDP.PCAP.EM.KD","NY.GDP.PCAP.PP.CD","SP.DYN.LE00.IN"]
 
 def get_data(country_code,use_case_target):
   use_case = use_cases[use_case_target]
