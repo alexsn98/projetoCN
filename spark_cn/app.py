@@ -33,7 +33,7 @@ def get_indicator_correlation(country_id, case):
 
     if re.search("[A-Z]{3}", country_id): #valid country code
         
-        get_correlation_query = "SELECT * FROM correlation_result WHERE countrycode=(%s) AND targetcode=(%s);"
+        get_correlation_query = "SELECT * FROM correlation_result WHERE country=(%s) AND targetcode=(%s);"
 
         if(case == "case1"):
             data = (country_id, "EN.ATM.CO2E.PC", )
