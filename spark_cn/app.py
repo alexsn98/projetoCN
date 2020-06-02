@@ -1,4 +1,4 @@
-#!flask/bin/python
+#!flask/bin/python3
 from flask import Flask, jsonify, make_response, g
 import psycopg2
 import psycopg2.extras
@@ -6,30 +6,16 @@ import re
 
 app = Flask(__name__)
 
-def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = psycopg2.connect(dbname='postgres', user='postgres', password='CNgrupo8',
-        host='127.0.0.1', port='5432', cursor_factory=psycopg2.extras.RealDictCursor)
-    return db
-
-@app.before_request
-def before_request():
-    g.db = get_db()
-
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
-
 @app.route('/')
 def hello():
     return "Hello world!"
 
 @app.route('/correlation/<string:country_id>/<string:case>', methods=['GET'])
 def get_indicator_correlation(country_id, case):
-    cur = g.db.cursor()
+    db = psycopg2.connect(dbname='postgres', user='postgres', password='CNgrupo8',
+        host='127.0.0.1', port='5432')
+
+    cur = db.cursor()
 
     if re.search("[A-Z]{3}", country_id): #valid country code
         
@@ -50,8 +36,19 @@ def get_indicator_correlation(country_id, case):
             
         query_result = cur.fetchall()
 
+        query_result_formated = []
+
+        for row in query_result:
+            row_dict = {}
+            row_dict["country"] = row[0]
+            row_dict["indicatorcode"] = row[1]
+            row_dict["targetcode"] = row[2]
+            row_dict["correlationvalue"] = str(row[3])
+
+            query_result_formated.append(row_dict)
+
         if query_result is not None: #country exists
-            r = make_response(jsonify(query_result))
+            r = make_response(jsonify(query_result_formated))
             r.status_code = 200
 
         else: 
@@ -61,11 +58,16 @@ def get_indicator_correlation(country_id, case):
         r = make_response("Invalid country code supplied")
         r.status_code = 400
 
+    db.close()
+
     return r
 
 @app.route('/regression/<string:country_id>/<string:year>', methods=['GET'])
 def get_indicator_regression(country_id, year):
-    cur = g.db.cursor()
+    db = psycopg2.connect(dbname='postgres', user='postgres', password='CNgrupo8',
+        host='127.0.0.1', port='5432', cursor_factory=psycopg2.extras.RealDictCursor)
+
+    cur = db.cursor()
 
     #falta verificar indicador code
     if re.search("[A-Z]{3}", country_id): #valid country code
@@ -76,7 +78,6 @@ def get_indicator_regression(country_id, year):
             
             query_result = cur.fetchall()
 
-            print(country_id, year)
             if query_result is not None: #country exists
                 r = make_response(jsonify(query_result))
                 r.status_code = 200
@@ -90,6 +91,8 @@ def get_indicator_regression(country_id, year):
     else:
         r = make_response("Invalid country code supplied")
         r.status_code = 400
+
+    db.close()
 
     return r
 
