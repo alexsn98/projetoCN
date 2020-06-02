@@ -61,7 +61,7 @@ def get_indicator_correlation(country_id, case):
         r = make_response("Invalid country code supplied")
         r.status_code = 400
 
-    return 0
+    return r
 
 @app.route('/regression/<string:country_id>/<string:year>', methods=['GET'])
 def get_indicator_regression(country_id, year):
@@ -78,7 +78,7 @@ def get_indicator_regression(country_id, year):
             query_result = cur.fetchall()
 
             if query_result is not None: #country exists
-                r = make_response(query_result)
+                r = make_response(jsonify(query_result))
                 r.status_code = 200
 
             else: 
@@ -91,7 +91,7 @@ def get_indicator_regression(country_id, year):
         r = make_response("Invalid country code supplied")
         r.status_code = 400
 
-    return 0
+    return r
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True) 
