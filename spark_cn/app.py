@@ -51,7 +51,7 @@ def get_indicator_correlation(country_id, case):
         query_result = cur.fetchall()
 
         if query_result is not None: #country exists
-            r = make_response({query_result})
+            r = make_response(jsonify(query_result))
             r.status_code = 200
 
         else: 
@@ -63,20 +63,20 @@ def get_indicator_correlation(country_id, case):
 
     return r
 
-@app.route('/regression/<string:country_id>/<int:year>', methods=['GET'])
+@app.route('/regression/<string:country_id>/<string:year>', methods=['GET'])
 def get_indicator_regression(country_id, year):
     cur = g.db.cursor()
 
     #falta verificar indicador code
     if re.search("[A-Z]{3}", country_id): #valid country code
-        if (year >= 2004 and year <= 2014): #valid indicator code
-
+        if (int(year) >= 2004 and int(year) <= 2014): #valid indicator code
             get_regression_query = "SELECT * FROM regression_result WHERE country=(%s) AND year=(%s);"
             data = (country_id, year, )
             cur.execute(get_regression_query, data)
             
             query_result = cur.fetchall()
 
+            print(country_id, year)
             if query_result is not None: #country exists
                 r = make_response(jsonify(query_result))
                 r.status_code = 200
