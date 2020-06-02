@@ -436,7 +436,7 @@
         console.log(caseChosen);
     
         var xhttp = new XMLHttpRequest();
-        var url = "http://"+ getURL() + "/regression/" + countryChosen "/" + year ;
+        var url = "http://"+ getURL() + "/regression/" + countryChosen + "/" + year ;
           
         $.ajax({
               type: "GET", 
@@ -519,7 +519,7 @@
         console.log(caseChosen);
     
         var xhttp = new XMLHttpRequest();
-        var url = "http://"+ getURL() + "/correlation/" +countryChosen "/"+ caseChosen ;
+        var url = "http://"+ getURL() + "/correlation/" +countryChosen + "/"+ caseChosen ;
           
         $.ajax({
               type: "GET", 
