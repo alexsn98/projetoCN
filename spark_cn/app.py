@@ -51,7 +51,7 @@ def get_indicator_correlation(country_id, case):
         query_result = cur.fetchall()
 
         if query_result is not None: #country exists
-            r = make_response(jsonify(query_result))
+            r = make_response({query_result})
             r.status_code = 200
 
         else: 
@@ -63,7 +63,7 @@ def get_indicator_correlation(country_id, case):
 
     return r
 
-@app.route('/regression/<string:country_id>/<string:year>', methods=['GET'])
+@app.route('/regression/<string:country_id>/<int:year>', methods=['GET'])
 def get_indicator_regression(country_id, year):
     cur = g.db.cursor()
 
