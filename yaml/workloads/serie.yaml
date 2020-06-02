@@ -48,7 +48,6 @@ spec:
               key: dbname
               name: cloudsql-db-credentials
         image: alexsn98/serie_cn:latest
-        imagePullPolicy: IfNotPresent
         name: serie
         resources: {}
         terminationMessagePath: /dev/termination-log

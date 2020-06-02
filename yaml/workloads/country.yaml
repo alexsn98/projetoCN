@@ -48,7 +48,6 @@ spec:
               key: dbname
               name: cloudsql-db-credentials
         image: alexsn98/country_cn:latest
-        imagePullPolicy: IfNotPresent
         lifecycle:
           preStop:
             exec:

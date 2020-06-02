@@ -48,7 +48,6 @@ spec:
               key: dbname
               name: cloudsql-db-credentials
         image: alexsn98/indicator_cn:latest
-        imagePullPolicy: IfNotPresent
         name: indicator
         resources: {}
         terminationMessagePath: /dev/termination-log

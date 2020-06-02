@@ -24,7 +24,6 @@ spec:
     spec:
       containers:
       - image: alexsn98/frontend_cn:latest
-        imagePullPolicy: IfNotPresent
         name: frontend
         resources: {}
         terminationMessagePath: /dev/termination-log
