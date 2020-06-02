@@ -60,9 +60,7 @@ kubectl expose deployment country --type=NodePort --port 80 --target-port 5000
 kubectl expose deployment indicator --type=NodePort --port 80 --target-port 5000
 kubectl expose deployment serie --type=NodePort --port 80 --target-port 5000
 
-kubectl expose deployment correlation --type=NodePort --port 80 --target-port 5000
-
-kubectl expose deployment linearegression --type=NodePort --port 80 --target-port 5000
+kubectl expose deployment spark --type=NodePort --port 80 --target-port 5000
 
 kubectl expose deployment frontend --type=NodePort --port 80
 
