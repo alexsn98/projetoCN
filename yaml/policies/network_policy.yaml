@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: network-policy-kubernetes
+  namespace: default
+spec:
+  podSelector:
+    matchLabels:
+      label: #label para ser universal a todos??
+  policyTypes:
+  - Egress
+  egress:
+    ports:
+      port: 5000
+#sem ingress porque o ingress nao tem pod, logo a policy nao se aplica e os pods nao comunicam entre si

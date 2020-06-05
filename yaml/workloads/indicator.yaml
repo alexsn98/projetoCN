@@ -7,6 +7,7 @@ metadata:
   generation: 6
   labels:
     app: indicator
+    policy: yes
   name: indicator
   namespace: default
   resourceVersion: "1874380"

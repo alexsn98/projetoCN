@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: frontend
+    policy: yes
   name: frontend
 spec:
   progressDeadlineSeconds: 600
