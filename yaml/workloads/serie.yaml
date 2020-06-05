@@ -7,7 +7,7 @@ metadata:
   generation: 3
   labels:
     app: serie
-    policy: yes
+    policy: network
   name: serie
   namespace: default
   resourceVersion: "1874431"

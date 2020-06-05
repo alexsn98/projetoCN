@@ -6,7 +6,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      label: #label para ser universal a todos??
+      policy: network
   policyTypes:
   - Egress
   egress:
