@@ -12,5 +12,5 @@ spec:
   egress:
   - to:
     ports:
-      port: 5000
+      - port: 5000
 #sem ingress porque o ingress nao tem pod, logo a policy nao se aplica e os pods nao comunicam entre si
