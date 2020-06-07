@@ -60,7 +60,7 @@ def get_country(countryCode):
 
         if len(query_result) > 0:
             r = make_response(jsonify(query_result))
-            r.status_code = 200
+            r.status_code = 200 #a
 
         else:
             r = make_response("Empty list of countries")
