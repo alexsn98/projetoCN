@@ -60,7 +60,7 @@ jobs:
       run: |
         cd country
         ls
-        docker login --username ${{ secrets.docker_user }} --password ${{ secrets.docker_password }}
+        docker login --u ${{ secrets.docker_user }} --p ${{ secrets.docker_password }} docker.io
         docker push alexsn98/country_cn
         
     # Set up kustomize
