@@ -20,7 +20,7 @@ env:
   GKE_PROJECT: ${{ secrets.GKE_PROJECT }}
   GKE_EMAIL: ${{ secrets.GKE_EMAIL }}
   GITHUB_SHA: ${{ github.sha }}
-  GKE_ZONE: europe-west-1d
+  GKE_ZONE: europe-west1-d
   GKE_CLUSTER: cloudcomputingcluster
   IMAGE: country_cn
   REGISTRY_HOSTNAME: docker #not sure
@@ -59,6 +59,7 @@ jobs:
     - name: Publish
       run: |
         cd country
+        ls
         docker push alexsn98/country_cn
         
     # Set up kustomize
