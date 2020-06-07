@@ -50,7 +50,8 @@ jobs:
       
     # Build the Docker image
     - name: Build
-      run: |        
+      run: |
+        cd indicator        
         docker build -t alexsn98/indicator_cn \
           --build-arg GITHUB_SHA="$GITHUB_SHA" \
           --build-arg GITHUB_REF="$GITHUB_REF" .
