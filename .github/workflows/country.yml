@@ -58,7 +58,7 @@ jobs:
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |
-        ls
+        cd country
         docker push alexsn98/country_cn
         
     # Set up kustomize

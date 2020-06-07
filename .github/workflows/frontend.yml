@@ -59,6 +59,7 @@ jobs:
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |
+        cd frontend
         docker push alexsn98/frontend_cn
         
     # Set up kustomize

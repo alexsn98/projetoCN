@@ -58,6 +58,7 @@ jobs:
     # Push the Docker image to Google Container Registry
     - name: Publish
       run: |
+        cd serie
         docker push alexsn98/serie_cn
         
     # Set up kustomize
