@@ -52,7 +52,7 @@ def get_indicator_correlation(country_id, case):
             r.status_code = 200
 
         else: 
-            r = make_response("Correlation not found")
+            r = make_response("Country not found")
             r.status_code = 404
     else:
         r = make_response("Invalid country code supplied")
@@ -83,7 +83,7 @@ def get_indicator_regression(country_id, year):
                 r.status_code = 200
 
             else: 
-                r = make_response("Correlation not found")
+                r = make_response("Country not found")
                 r.status_code = 404
         else:
             r = make_response("Invalid year supplied")
