@@ -117,4 +117,4 @@ if __name__ == "__main__":
       db_data = get_data(country,target)
       build_csv_file(db_data)
       correlation_results = get_correlation(target)
-      save_in_db(country, target, correlation_results)
+      save_in_db(country, target, correlation_results) 
