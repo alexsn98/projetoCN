@@ -11,7 +11,7 @@ def get_db():
     if db is None:
         db = g._database = psycopg2.connect(dbname='postgres', user='postgres', password='CNgrupo8',
         host='127.0.0.1', port='5432', cursor_factory=psycopg2.extras.RealDictCursor)
-    return db
+    return db 
 
 @app.before_request
 def before_request():
