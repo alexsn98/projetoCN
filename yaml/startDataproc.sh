@@ -1,0 +1,4 @@
+gcloud dataproc clusters create sparkcluster --region europe-west1 --subnet default --zone europe-west1-d --master-machine-type n1-standard-2 --master-boot-disk-size 500 --num-workers 2 --worker-machine-type n1-standard-2 --worker-boot-disk-size 500 --image-version 1.4-debian9 --scopes "https://www.googleapis.com/auth/cloud-platform" --project cloudcomputingproject-272814 --metadata "CONDA_PACKAGES=scipy=1.1.0 tensorflow" --metadata "PIP_PACKAGES=pandas psycopg2-binary google-cloud-storage" --initialization-actions "gs://goog-dataproc-initialization-actions-europe-west1/python/conda-install.sh"
+gcloud dataproc jobs submit pyspark gs://project-files-cn/sparkJobs/correlation.py --cluster=sparkcluster --region europe-west1
+gcloud dataproc jobs submit pyspark gs://project-files-cn/sparkJobs/linearregression.py --cluster=sparkcluster --region europe-west1
+gcloud dataproc clusters delete sparkcluster --region europe-west1
